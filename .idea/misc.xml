@@ -5,6 +5,7 @@
       <list>
         <option value="$PROJECT_DIR$/chapter1-upgrade-selenium4/pom.xml" />
         <option value="$PROJECT_DIR$/chapter2-relativelocators-selenium4/pom.xml" />
+        <option value="$PROJECT_DIR$/chapter3-initializationscripts-selenium4/pom.xml" />
       </list>
     </option>
   </component>

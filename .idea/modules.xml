@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/LambdaTest-Selenium4-Java-Tutorial.iml" filepath="$PROJECT_DIR$/.idea/LambdaTest-Selenium4-Java-Tutorial.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter1-upgrade-selenium4/chapter2-relative-locators-selenium4.iml" filepath="$PROJECT_DIR$/chapter1-upgrade-selenium4/chapter2-relative-locators-selenium4.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter2-relativelocators-selenium4/chapter2-relativelocators-selenium4.iml" filepath="$PROJECT_DIR$/chapter2-relativelocators-selenium4/chapter2-relativelocators-selenium4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter3-initializationscripts-selenium4/chapter3-initializationscripts-selenium4.iml" filepath="$PROJECT_DIR$/chapter3-initializationscripts-selenium4/chapter3-initializationscripts-selenium4.iml" />
     </modules>
   </component>
 </project>

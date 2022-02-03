@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="chapter2-relativelocators-selenium4" />
         <module name="chapter2-relative-locators-selenium4" />
+        <module name="chapter3-initializationscripts-selenium4" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="chapter2-relative-locators-selenium4" target="15" />
       <module name="chapter2-relativelocators-selenium4" target="15" />
+      <module name="chapter3-initializationscripts-selenium4" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>
