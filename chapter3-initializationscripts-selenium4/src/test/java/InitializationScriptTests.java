@@ -3,36 +3,35 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.provider.Arguments;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.events.DomMutationEvent;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringDecorator;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.events.WebDriverListener;
-import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class InitializationScriptTests {
+    private final int WAIT_FOR_ELEMENT_TIMEOUT = 30;
     private WebDriver driver;
+    private WebDriver decoratedDriver;
     private WebDriverWait webDriverWait;
+    private Actions actions;
 
     @BeforeAll
     public static void setUpClass() {
         WebDriverManager.chromedriver().setup();
     }
 
-    @Test
-    public void sendNotificationsMessages() throws InterruptedException {
+    @BeforeEach
+    public void setUp() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         DevTools devTools = ((ChromeDriver)driver).getDevTools();
@@ -51,13 +50,26 @@ public class InitializationScriptTests {
             $.getScript('https://cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.js')
             $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.css" type="text/css" />');
         }
+        function highlight(element){
+            let defaultBG = element.style.backgroundColor;
+            let defaultOutline = element.style.outline;
+            element.style.backgroundColor = '#FDFF47';
+            element.style.outline = '#f00 solid 2px';
+        
+            setTimeout(function()
+            {
+                element.style.backgroundColor = defaultBG;
+                element.style.outline = defaultOutline;
+            }, 1000);
+        }
         """);
-       // devTools.getDomains().javascript().addJsBinding("notifications");
+
         var listener = new WebDriverListener() {
             @Override
             public void beforeAnyWebElementCall(WebElement element, Method method, Object[] args) {
                 try {
                     growlMessage(String.format("About to call a method %s in element", method.getName()));
+                    //highlighElement(element);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -66,6 +78,7 @@ public class InitializationScriptTests {
             @Override
             public void afterAnyWebElementCall(WebElement element, Method method, Object[] args, Object result) {
                 try {
+                    highlighElement(element);
                     growlMessage(String.format("%s called for element %s", method.getName(), element.getTagName()));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -91,55 +104,78 @@ public class InitializationScriptTests {
             }
         };
 
-        var decoratedDriver = new EventFiringDecorator(listener).decorate(driver);
-        webDriverWait = new WebDriverWait(decoratedDriver, Duration.ofSeconds(30));
-
-        decoratedDriver.get("https://www.zip-codes.com/search.asp?selectTab=3");
-
-
-        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//p[text()='Consent']")));
-        var consentButton = decoratedDriver.findElement(By.xpath("//p[text()='Consent']"));
-        consentButton.click();
-
-        var cityInput = decoratedDriver.findElement(By.xpath("//label[text()='Town/City:']/following-sibling::input"));
-        cityInput.sendKeys("ANT");
-        var h4 = decoratedDriver.findElement(By.xpath("//h4[text()='Find ZIP Codes by City, State, Address, or Area Code']"));
-        var findZipCodesButton = decoratedDriver.findElement(RelativeLocator.with(By.xpath("//form/input[@value='Find ZIP Codes']")).below(h4));
-        ///findZipCodesButton.click();
-
-        //webDriverWait.until(ExpectedConditions.elementToBeClickable(RelativeLocator.with(By.xpath("//form/input[@value='Find ZIP Codes']")).below(By.xpath("//h4[text()='Find ZIP Codes by City, State, Address, or Area Code']"))));
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(RelativeLocator.with(By.xpath("//form/input[@value='Find ZIP Codes']")).below(h4)));
-        findZipCodesButton.click();
-
-        List<String> zipTableLinks = decoratedDriver.findElements(By.xpath("//table[@class='statTable']/tbody/tr/td[1]/a")).
-                stream().limit(10).map(a -> String.format("https://www.zip-codes.com/%s", a.getAttribute("href"))).collect(Collectors.toList());
-
-        List<ZipInfo> zipInfos = new ArrayList<>();
-        zipTableLinks.stream().forEach(l -> {
-            decoratedDriver.navigate().to(l);
-            try {
-                growlMessage("navigate to " + l);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            zipInfos.add(new ZipInfo(
-                    findZipColumnDataByLabel("City"),
-                    findZipColumnDataByLabel("State"),
-                    findZipColumnDataByLabel("Zip Code"),
-                    findZipColumnDataByLabel("Longitude"),
-                    findZipColumnDataByLabel("Latitude")));
-        });
+        decoratedDriver = new EventFiringDecorator(listener).decorate(driver);
+        webDriverWait = new WebDriverWait(decoratedDriver, Duration.ofSeconds(WAIT_FOR_ELEMENT_TIMEOUT));
+        actions = new Actions(decoratedDriver);
     }
 
-    private  void growlMessage(String message) throws InterruptedException {
-        Thread.sleep(1000);
+    @Test
+    public void verifyToDoListCreatedSuccessfully_noParams(){
+        decoratedDriver.navigate().to("https://todomvc.com/");
+        openTechnologyApp("Backbone.js");
+        addNewToDoItem("Clean the car");
+        addNewToDoItem("Clean the house");
+        addNewToDoItem("Buy Ketchup");
+        getItemCheckbox("Buy Ketchup").click();
+
+        assertLeftItems(2);
+    }
+
+    private void assertLeftItems(int expectedCount){
+        var resultSpan = waitAndFindElement(By.xpath("//footer/*/span | //footer/span"));
+        if (expectedCount == 1){
+            var expectedText = String.format("%d item left", expectedCount);
+            validateInnerTextIs(resultSpan, expectedText);
+        } else {
+            var expectedText = String.format("%d items left", expectedCount);
+            validateInnerTextIs(resultSpan, expectedText);
+        }
+    }
+
+    private void validateInnerTextIs(WebElement resultElement, String expectedText){
+        webDriverWait.until(ExpectedConditions.textToBePresentInElement(resultElement, expectedText));
+    }
+
+    private WebElement getItemCheckbox(String todoItem){
+        var xpathLocator = String.format("//label[text()='%s']/preceding-sibling::input", todoItem);
+        return waitAndFindElement(By.xpath(xpathLocator));
+    }
+
+    private void openTechnologyApp(String technologyName){
+        var technologyLink = waitAndFindElement(By.linkText(technologyName));
+        technologyLink.click();
+    }
+
+    private void addNewToDoItem(String todoItem){
+        var todoInput = waitAndFindElement(By.xpath("//input[@placeholder='What needs to be done?']"));
+        todoInput.sendKeys(todoItem);
+        actions.click(todoInput).sendKeys(Keys.ENTER).perform();
+    }
+
+    private WebElement waitAndFindElement(By locator){
+        return webDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
+    private Stream<Arguments> provideWebTechnologiesMultipleParams() {
+        return Stream.of(
+                Arguments.of("AngularJS", List.of("Buy Ketchup", "Buy House", "Buy Paper", "Buy Milk", "Buy Batteries"), List.of("Buy Ketchup", "Buy House"), 3),
+                Arguments.of("React", List.of("Buy Ketchup", "Buy House", "Buy Paper", "Buy Milk", "Buy Batteries"), List.of("Buy Paper", "Buy Milk", "Buy Batteries"), 2),
+                Arguments.of("Vue.js", List.of("Buy Ketchup", "Buy House", "Buy Paper", "Buy Milk", "Buy Batteries"), List.of("Buy Paper", "Buy Milk", "Buy Batteries"), 2),
+                Arguments.of("Angular 2.0", List.of("Buy Ketchup", "Buy House", "Buy Paper", "Buy Milk", "Buy Batteries"), List.of(), 5)
+        );
+    }
+
+    private void highlighElement(WebElement element) {
+        try {
+            ((JavascriptExecutor)driver).executeScript("highlight(arguments[0])", element);
+        }
+        catch (Exception ex) {
+        }
+    }
+
+    private void growlMessage(String message) throws InterruptedException {
+        Thread.sleep(500);
         ((JavascriptExecutor)driver).executeScript(String.format("$.jGrowl('%s', { header: 'Important' });", message));
-    }
-
-    private String findZipColumnDataByLabel(String label) {
-        // return driver.findElement(RelativeLocator.with(By.tagName("td")).below(By.tagName("td")).above(By.xpath(String.format("//span[text() = '%s:']", label)))).getText();
-        //return driver.findElement(By.xpath(String.format("//span[text() = '%s:']/parent::td/following-sibling::td", label))).getText();
-        return driver.findElement(RelativeLocator.with(By.tagName("td")).toRightOf(By.xpath(String.format("//span[text() = '%s:']", label)))).getText();
     }
 
     @AfterEach
