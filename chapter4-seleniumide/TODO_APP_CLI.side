@@ -1,0 +1,446 @@
+{
+  "id": "8f94928f-b321-472e-80fa-fe443d53f1f0",
+  "version": "2.0",
+  "name": "TODO_APP",
+  "url": "https://todomvc.com",
+  "tests": [{
+    "id": "65413be2-33f5-4368-9522-27f4c4911c85",
+    "name": "add_new_items",
+    "commands": [{
+      "id": "e24c787c-13c7-4502-a52c-f36ceffb1b6e",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3e2b62ca-f5fc-49c2-bb81-3e68ecaabb85",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1854x1032",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6bc03262-83b6-45f7-aea6-7c4ffbe3d57f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Backbone.js",
+      "targets": [
+        ["linkText=Backbone.js", "linkText"],
+        ["css=.js-app-list:nth-child(1) .routing:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Backbone.js')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'examples/backbone')]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Backbone.js')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b9e049ed-7061-4179-a10b-959aaba1a9c6",
+      "comment": "",
+      "command": "executeScript",
+      "target": "localStorage.clear();",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0655c5de-7014-4199-b3cc-1bb68ee7267c",
+      "comment": "",
+      "command": "executeScript",
+      "target": "window.location.reload()",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "919f1042-d93f-4197-9b17-01464a0ee139",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "5000"
+    }, {
+      "id": "e7f6b7fd-4de7-40a7-b395-7d97bd25673d",
+      "comment": "",
+      "command": "type",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "clean the kitchen"
+    }, {
+      "id": "8398e3c1-a275-4238-90e7-00293c0dc62a",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "8da5dfe5-fcbc-4480-b252-8db8396f22b4",
+      "comment": "",
+      "command": "type",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "clean the car"
+    }, {
+      "id": "7c0a6c97-1d08-498e-9cc5-4269d1ad9f0f",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "859bd914-a847-4b84-88b4-eb8a75789448",
+      "comment": "",
+      "command": "click",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0d3c26d6-7a5b-420d-ae72-77be1db08477",
+      "comment": "",
+      "command": "type",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "buy milk"
+    }, {
+      "id": "959d69b1-88db-4ff1-bc9c-f9e0834a5903",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "217da312-3a33-406e-9584-8fb416612de9",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=/html/body/section/footer/span",
+      "targets": [
+        ["css=.filters", "css:finder"],
+        ["xpath=//footer/ul", "xpath:position"]
+      ],
+      "value": "3 items left"
+    }, {
+      "id": "3b38469a-e7ef-4773-8eaa-8334ad297687",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "ad10bd35-197a-4df2-9b25-22daa251249f",
+    "name": "add_new_items_second",
+    "commands": [{
+      "id": "5e29352b-4d67-4ca5-9405-1fb8ff3230c4",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "afe3c113-ce47-449c-90f4-b40101d2874d",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1854x1032",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b61ef0ce-4220-446f-a5bf-ac9ff61c6d8c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Backbone.js",
+      "targets": [
+        ["linkText=Backbone.js", "linkText"],
+        ["css=.js-app-list:nth-child(1) .routing:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Backbone.js')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'examples/backbone')]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Backbone.js')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1510c712-d07c-424a-b58f-7da2aa9dc465",
+      "comment": "",
+      "command": "executeScript",
+      "target": "localStorage.clear();",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "75fd0c7a-940b-4935-93c2-080591934a28",
+      "comment": "",
+      "command": "executeScript",
+      "target": "window.location.reload()",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "afea7d23-0f0e-485a-9b6b-0bab8a61f2ec",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "5000"
+    }, {
+      "id": "b0307c99-e2ed-4663-b2e7-c13031318630",
+      "comment": "",
+      "command": "type",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "clean the kitchen"
+    }, {
+      "id": "03c392ce-be28-4e48-9a89-df8af1117455",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "ce9c7420-af87-4239-8006-976a98b8e033",
+      "comment": "",
+      "command": "type",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "clean the car"
+    }, {
+      "id": "269cbac2-fb03-4432-b79f-1395db449d84",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "c1ed783b-4b16-42d6-b205-93347412513e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "70919a1a-d1dd-4543-b65f-b73c9994fce8",
+      "comment": "",
+      "command": "type",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "buy milk"
+    }, {
+      "id": "1f1002fd-3c39-4f04-b239-3cf37c6cc2db",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "46769c1c-93ed-4077-a3ea-e689b26ce4a8",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=/html/body/section/footer/span",
+      "targets": [
+        ["css=.filters", "css:finder"],
+        ["xpath=//footer/ul", "xpath:position"]
+      ],
+      "value": "3 items left"
+    }, {
+      "id": "3c07c2ed-49de-4e95-8534-6a11d624dc26",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "105afcf8-a14b-4ec9-8830-f029961cd0b6",
+    "name": "add_new_items_third",
+    "commands": [{
+      "id": "0fb0247a-07e9-4b3d-9748-edf165298fad",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c791873b-063c-4a87-bd6e-cd48415d9a05",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1854x1032",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "be0e606a-fd16-4f8e-aad7-1a5b91eba2da",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Backbone.js",
+      "targets": [
+        ["linkText=Backbone.js", "linkText"],
+        ["css=.js-app-list:nth-child(1) .routing:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Backbone.js')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'examples/backbone')]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Backbone.js')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4367dafd-9797-4d91-a57d-3ab8c9a0f7f5",
+      "comment": "",
+      "command": "executeScript",
+      "target": "localStorage.clear();",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1c4b2b5d-9c65-4d11-bfde-8eea538c2aa0",
+      "comment": "",
+      "command": "executeScript",
+      "target": "window.location.reload()",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1f482fed-f152-4ffb-9faf-97676325fe8b",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "5000"
+    }, {
+      "id": "fe7b06cc-22ab-4f56-b76a-a21e1946d04b",
+      "comment": "",
+      "command": "type",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "clean the kitchen"
+    }, {
+      "id": "6ca5aae7-8513-4b4a-ad2b-3fd2e5ba0ad8",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "20224c1e-87f3-4ac9-a717-739f4075c173",
+      "comment": "",
+      "command": "type",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "clean the car"
+    }, {
+      "id": "25160e63-e0a1-4cf3-8fde-05590f5cc056",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "7f3a7ffb-758d-4bef-9fc3-381b682f0930",
+      "comment": "",
+      "command": "click",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "90b8b0ce-3c96-4eac-b1e8-7dedfbb1d178",
+      "comment": "",
+      "command": "type",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "buy milk"
+    }, {
+      "id": "a15eb3e0-2f96-4dff-a65f-e5eaf6c18bd1",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "48777f0d-a0de-4521-bc6c-69121e32928a",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=/html/body/section/footer/span",
+      "targets": [
+        ["css=.filters", "css:finder"],
+        ["xpath=//footer/ul", "xpath:position"]
+      ],
+      "value": "3 items left"
+    }, {
+      "id": "c347223c-593b-43e6-8fcf-ee54e4d47127",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "57903cc1-5cce-422f-a373-16853952de92",
+    "name": "MAIN",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["65413be2-33f5-4368-9522-27f4c4911c85", "ad10bd35-197a-4df2-9b25-22daa251249f", "105afcf8-a14b-4ec9-8830-f029961cd0b6"]
+  }],
+  "urls": ["https://todomvc.com/"],
+  "plugins": []
+}

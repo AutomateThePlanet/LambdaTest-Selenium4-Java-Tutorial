@@ -1,0 +1,362 @@
+{
+  "id": "8f94928f-b321-472e-80fa-fe443d53f1f0",
+  "version": "2.0",
+  "name": "TODO_APP",
+  "url": "https://todomvc.com",
+  "tests": [{
+    "id": "fa907252-b660-4491-9f78-6d5683f8b29d",
+    "name": "delete_items",
+    "commands": [{
+      "id": "d1b90f3c-dc69-4a88-9906-3c3c8ce9f180",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6af01f42-3a4e-4797-9194-0e3709e0d379",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1854x1032",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "64fd4b98-ee0e-4979-949a-0007663c1166",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Backbone.js",
+      "targets": [
+        ["linkText=Backbone.js", "linkText"],
+        ["css=.js-app-list:nth-child(1) .routing:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Backbone.js')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'examples/backbone')]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Backbone.js')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7fd755f3-f720-4b30-bc0d-7bb22be61a68",
+      "comment": "",
+      "command": "executeScript",
+      "target": "localStorage.clear();",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3848e37f-2610-4aa7-9e6d-3d6bb10fbba5",
+      "comment": "",
+      "command": "executeScript",
+      "target": "window.location.reload()",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c6104975-af77-4575-af7c-1c2f33e6f961",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return 1",
+      "targets": [],
+      "value": "i"
+    }, {
+      "id": "4659f338-a2e5-4d4f-aef5-ac9f05846131",
+      "comment": "",
+      "command": "times",
+      "target": "5",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a3f5665e-a8b5-4467-ae7e-525ccab61a88",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${i} + 1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ec075067-e129-4752-98ab-1d90578acab0",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return { completed: false, order: ${i}, created: `${new Date()}`, id: `${Math.random()}`, title: Math.random() }; ",
+      "targets": [],
+      "value": "newToDoItem"
+    }, {
+      "id": "8f5d6fb1-87f5-45d8-abc9-845f20ec2392",
+      "comment": "",
+      "command": "executeScript",
+      "target": "localStorage.setItem(\"todos-backbone-\" + ${newToDoItem}.id, JSON.stringify(${newToDoItem}));",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e9fe4fc4-9937-4d7e-9cd9-8fb84f11bb40",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return localStorage.getItem('todos-backbone');",
+      "targets": [],
+      "value": "currentToDoValue"
+    }, {
+      "id": "b28b672e-4ea7-487d-9cf9-500af65dd29f",
+      "comment": "",
+      "command": "executeScript",
+      "target": "  localStorage.setItem(\"todos-backbone\", ${currentToDoValue}+ \",\" + ${newToDoItem.id})",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b6ae3bce-0f0e-4897-a9fb-e80376fd9f5a",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "574e34db-6088-4ed9-a13f-131f6650ba5a",
+      "comment": "",
+      "command": "executeScript",
+      "target": "window.location.reload()",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "689a5f58-e305-4ca4-b54a-ff4d10a36edf",
+      "comment": "hovering the first item to show the delete button",
+      "command": "mouseOver",
+      "target": "xpath=//label[contains(text(), '0.')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a39048c5-7192-4c44-bca1-1a37d8fc7e74",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "xpath=//label[contains(text(), '0.')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "85a712c0-6473-42c6-8092-9037d71cac9c",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(1) .destroy",
+      "targets": [
+        ["css=li:nth-child(1) .destroy", "css:finder"],
+        ["xpath=//button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a9ef4cdd-8691-4bc1-a84d-77b50ca5306d",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "xpath=//label[contains(text(), '0.')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b80b811d-2ab9-4d45-a560-940f54ef5c8a",
+      "comment": "",
+      "command": "debugger",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "89bf4548-cd4c-4b00-9b68-811cd582cc89",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(1) .destroy",
+      "targets": [
+        ["css=li:nth-child(1) .destroy", "css:finder"],
+        ["xpath=//button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "73eba8b8-59c1-4b89-b5f3-0cc94b39b828",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "xpath=//label[contains(text(), '0.')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b621f2c7-ad8c-4aa6-9705-3539aa3ac38c",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(1) .destroy",
+      "targets": [
+        ["css=li:nth-child(1) .destroy", "css:finder"],
+        ["xpath=//button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "312de0a3-2724-439c-9798-395cf2dca7e7",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=/html/body/section/footer/span",
+      "targets": [
+        ["css=.filters", "css:finder"],
+        ["xpath=//footer/ul", "xpath:position"]
+      ],
+      "value": "2 items left"
+    }, {
+      "id": "ed254e57-065f-46fd-95b4-b0ef8ab335fc",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "65413be2-33f5-4368-9522-27f4c4911c85",
+    "name": "add_new_items",
+    "commands": [{
+      "id": "e24c787c-13c7-4502-a52c-f36ceffb1b6e",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3e2b62ca-f5fc-49c2-bb81-3e68ecaabb85",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1854x1032",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6bc03262-83b6-45f7-aea6-7c4ffbe3d57f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Backbone.js",
+      "targets": [
+        ["linkText=Backbone.js", "linkText"],
+        ["css=.js-app-list:nth-child(1) .routing:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Backbone.js')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'examples/backbone')]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Backbone.js')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b9e049ed-7061-4179-a10b-959aaba1a9c6",
+      "comment": "",
+      "command": "executeScript",
+      "target": "localStorage.clear();",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0655c5de-7014-4199-b3cc-1bb68ee7267c",
+      "comment": "",
+      "command": "executeScript",
+      "target": "window.location.reload()",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "919f1042-d93f-4197-9b17-01464a0ee139",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "5000"
+    }, {
+      "id": "e7f6b7fd-4de7-40a7-b395-7d97bd25673d",
+      "comment": "",
+      "command": "type",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "clean the kitchen"
+    }, {
+      "id": "8398e3c1-a275-4238-90e7-00293c0dc62a",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "8da5dfe5-fcbc-4480-b252-8db8396f22b4",
+      "comment": "",
+      "command": "type",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "clean the car"
+    }, {
+      "id": "7c0a6c97-1d08-498e-9cc5-4269d1ad9f0f",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "859bd914-a847-4b84-88b4-eb8a75789448",
+      "comment": "",
+      "command": "click",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0d3c26d6-7a5b-420d-ae72-77be1db08477",
+      "comment": "",
+      "command": "type",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "buy milk"
+    }, {
+      "id": "959d69b1-88db-4ff1-bc9c-f9e0834a5903",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.new-todo",
+      "targets": [
+        ["css=.new-todo", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "217da312-3a33-406e-9584-8fb416612de9",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=/html/body/section/footer/span",
+      "targets": [
+        ["css=.filters", "css:finder"],
+        ["xpath=//footer/ul", "xpath:position"]
+      ],
+      "value": "3 items left"
+    }, {
+      "id": "3b38469a-e7ef-4773-8eaa-8334ad297687",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "85017f7f-ceca-4554-b97f-003300b07f94",
+    "name": "edit_items",
+    "commands": []
+  }],
+  "suites": [{
+    "id": "4715abb3-06af-4d62-8346-d1f4b012d4cb",
+    "name": "BackboneJS Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["fa907252-b660-4491-9f78-6d5683f8b29d", "85017f7f-ceca-4554-b97f-003300b07f94", "65413be2-33f5-4368-9522-27f4c4911c85"]
+  }, {
+    "id": "d1b38f01-83f6-4bb6-bab8-18f3db53d847",
+    "name": "AngularJS",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["https://todomvc.com/"],
+  "plugins": []
+}
