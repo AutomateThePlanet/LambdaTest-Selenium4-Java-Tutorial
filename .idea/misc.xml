@@ -7,7 +7,9 @@
         <option value="$PROJECT_DIR$/chapter2-relativelocators-selenium4/pom.xml" />
         <option value="$PROJECT_DIR$/chapter3-initializationscripts-selenium4/pom.xml" />
         <option value="$PROJECT_DIR$/chapter5-geolocation-testing/pom.xml" />
+        <option value="$PROJECT_DIR$/chapter6-responsive-testing/pom.xml" />
       </list>
     </option>
   </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="15" project-jdk-type="JavaSDK" />
 </project>
