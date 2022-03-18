@@ -121,6 +121,16 @@ public class DevToolsResponsiveTestingLambdatestTests {
         falcon9Anchor.inside(SpecialComponents.getViewport(driver));
         falcon9Anchor.inside(SpecialComponents.getScreen(driver));
 
+        sortDropDown.assertFontSize("14px");
+        sortDropDown.assertFontWeight("400");
+        sortDropDown.assertFontFamily("\"Source Sans Pro\", HelveticaNeue-Light, \"Helvetica Neue Light\", \"Helvetica Neue\", Helvetica, Arial, \"Lucida Grande\", sans-serif");
+
+        protonRocketAnchor.assertColor("rgba(150, 88, 138, 1)");
+        protonRocketAnchor.assertBackgroundColor("rgba(0, 0, 0, 0)");
+        protonRocketAnchor.assertBorderColor("rgb(150, 88, 138)");
+
+        protonRocketAnchor.assertTextAlign("center");
+        protonRocketAnchor.assertVerticalAlign("baseline");
     }
 
     @AfterEach
