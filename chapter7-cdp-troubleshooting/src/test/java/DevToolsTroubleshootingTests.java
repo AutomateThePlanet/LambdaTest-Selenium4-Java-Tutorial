@@ -3,6 +3,7 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.events.DomMutationEvent;
 import org.openqa.selenium.devtools.v95.emulation.Emulation;
 import org.openqa.selenium.devtools.v95.log.Log;
@@ -22,7 +23,7 @@ import static org.openqa.selenium.devtools.events.CdpEventTypes.domMutation;
 
 public class DevToolsTroubleshootingTests {
     private final int WAIT_FOR_ELEMENT_TIMEOUT = 30;
-    private ChromeDriver driver;
+    private WebDriver driver;
     private WebDriverWait webDriverWait;
     private Actions actions;
 
@@ -42,7 +43,7 @@ public class DevToolsTroubleshootingTests {
 
     @Test
     public void verifyCalculatedDistance_when_countryGermany(){
-        DevTools devTools = driver.getDevTools();
+        DevTools devTools = ((HasDevTools)driver).getDevTools();
         devTools.createSession();
         devTools.send(Emulation.setGeolocationOverride(Optional.of(52.520008),
                 Optional.of(13.404954),
@@ -52,7 +53,7 @@ public class DevToolsTroubleshootingTests {
         devTools.send(Emulation.setLocaleOverride(Optional.of("de-DE")));
 
         List<DomMutationEvent> mutationsList = Collections.synchronizedList(new ArrayList<>());
-        driver.onLogEvent(domMutation(mutation -> {
+        ((HasLogEvents)driver).onLogEvent(domMutation(mutation -> {
             mutationsList.add(mutation);
         }));
 
@@ -91,7 +92,7 @@ public class DevToolsTroubleshootingTests {
 
         var calculateDistanceButton = driver.findElement(By.xpath("//button[text()='Calculate the distance']"));
 
-        driver.executeScript("console.log('jquery-migrate.min.js:2 JQMIGRATE: Migrate is installed, version 3.3.2')");
+        ((JavascriptExecutor)driver).executeScript("console.log('jquery-migrate.min.js:2 JQMIGRATE: Migrate is installed, version 3.3.2')");
         ((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);",
                 calculateDistanceButton, "onclick", "throw new Error('Calculation error')");
 

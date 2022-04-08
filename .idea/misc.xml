@@ -8,8 +8,12 @@
         <option value="$PROJECT_DIR$/chapter3-initializationscripts-selenium4/pom.xml" />
         <option value="$PROJECT_DIR$/chapter5-geolocation-testing/pom.xml" />
         <option value="$PROJECT_DIR$/chapter6-responsive-testing/pom.xml" />
+        <option value="$PROJECT_DIR$/chapter7-cdp-troubleshooting/pom.xml" />
+        <option value="$PROJECT_DIR$/chapter8-cdp-capturehttptraffic/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="15" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="15" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/chapter8-cdp-capturehttptraffic/target" />
+  </component>
 </project>

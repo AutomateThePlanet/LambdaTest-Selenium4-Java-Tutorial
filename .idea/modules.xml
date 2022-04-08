@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/LambdaTest-Selenium4-Java-Tutorial.iml" filepath="$PROJECT_DIR$/.idea/LambdaTest-Selenium4-Java-Tutorial.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter1-upgrade-selenium4/chapter2-relative-locators-selenium4.iml" filepath="$PROJECT_DIR$/chapter1-upgrade-selenium4/chapter2-relative-locators-selenium4.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter2-relativelocators-selenium4/chapter2-relativelocators-selenium4.iml" filepath="$PROJECT_DIR$/chapter2-relativelocators-selenium4/chapter2-relativelocators-selenium4.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter3-initializationscripts-selenium4/chapter3-initializationscripts-selenium4.iml" filepath="$PROJECT_DIR$/chapter3-initializationscripts-selenium4/chapter3-initializationscripts-selenium4.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter5-geolocation-testing/chapter5-geolocation-testing.iml" filepath="$PROJECT_DIR$/chapter5-geolocation-testing/chapter5-geolocation-testing.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter6-responsive-testing/chapter6-responsive-testing.iml" filepath="$PROJECT_DIR$/chapter6-responsive-testing/chapter6-responsive-testing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter7-cdp-troubleshooting/chapter7-cdp-troubleshooting.iml" filepath="$PROJECT_DIR$/chapter7-cdp-troubleshooting/chapter7-cdp-troubleshooting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter8-cdp-capturehttptraffic/chapter8-cdp-capturehttptraffic.iml" filepath="$PROJECT_DIR$/chapter8-cdp-capturehttptraffic/chapter8-cdp-capturehttptraffic.iml" />
     </modules>
   </component>
 </project>
