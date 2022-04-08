@@ -45,9 +45,6 @@ public class CaptureHttpTrafficTests {
     public void setUp() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-
-        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(WAIT_FOR_ELEMENT_TIMEOUT));
-        actions = new Actions(driver);
     }
 
     @Test
