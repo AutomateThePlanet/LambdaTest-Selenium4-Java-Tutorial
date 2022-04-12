@@ -66,6 +66,7 @@ public class CaptureHttpTrafficTests {
                         .to(() -> req -> new HttpResponse()
                                 .setStatus(200)
                                 .addHeader("Content-Type", "text/html; charset=utf-8")
+                                .addHeader("Accept-Encoding", "gzip, deflate")
                                 .setContent(utf8String("You have been hacked!"))));
 
         driver.get("http://httpbin.org/basic-auth/user/passwd");
@@ -89,7 +90,6 @@ public class CaptureHttpTrafficTests {
         devTools.send(Network.setBlockedURLs(ImmutableList.of("*.png","*.css")));
 
         devTools.addListener(loadingFailed(), loadingFailed -> {
-
             if (loadingFailed.getType().equals(ResourceType.STYLESHEET)) {
                 assertEquals(loadingFailed.getBlockedReason(), BlockedReason.INSPECTOR);
             }
@@ -97,7 +97,6 @@ public class CaptureHttpTrafficTests {
             else if (loadingFailed.getType().equals(ResourceType.IMAGE)) {
                 assertEquals(loadingFailed.getBlockedReason(), BlockedReason.INSPECTOR);
             }
-
         });
 
         // block URLs
@@ -141,31 +140,48 @@ public class CaptureHttpTrafficTests {
         devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
 
         devTools.addListener(webSocketCreated(), e -> {
-            System.out.print("Created");
-            System.out.print(e.getUrl());
-            System.out.print(e.getInitiator().get().getUrl());
-            System.out.print(e.getInitiator().get().getLineNumber());
+            System.out.println("Created");
+            System.out.println(e.getUrl());
+            System.out.println(e.getInitiator().get().getUrl());
+            System.out.println(e.getInitiator().get().getLineNumber());
         });
 
         devTools.addListener(webSocketFrameReceived(), e -> {
-            System.out.print("Received");
-            System.out.print(e.getResponse().getPayloadData());
-            System.out.print(e.getResponse().getOpcode());
-            System.out.print(e.getResponse().getMask());
+            System.out.println("Received");
+            System.out.println(e.getResponse().getPayloadData());
+            System.out.println(e.getResponse().getOpcode());
+            System.out.println(e.getResponse().getMask());
         });
 
         devTools.addListener(webSocketFrameError(), e -> {
-            System.out.print(e.getErrorMessage());
+            System.out.println(e.getErrorMessage());
         });
 
         devTools.addListener(webSocketClosed(), e -> {
-            System.out.print("Closed");
-            System.out.print(e.getTimestamp());
+            System.out.println("Closed");
+            System.out.println(e.getTimestamp());
         });
 
         driver.get("https://www.piesocket.com/websocket-tester");
         var button = driver.findElement(By.xpath("//button[@type='submit']"));
         button.click();
+        Thread.sleep(20000);
+    }
+
+    @Test
+    public void verifyEventSourceMessagesTest() throws InterruptedException {
+        var devToolsDriver = (HasDevTools)driver;
+        DevTools devTools = devToolsDriver.getDevTools();
+        devTools.createSession();
+
+        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+
+        devTools.addListener(eventSourceMessageReceived(), e -> {
+            System.out.println(e.getEventName());
+            System.out.println(e.getData());
+        });
+
+        driver.get("https://www.w3schools.com/html/tryit.asp?filename=tryhtml5_sse");
         Thread.sleep(20000);
     }
 
@@ -182,6 +198,8 @@ public class CaptureHttpTrafficTests {
         devTools.addListener(Network.responseReceived(), responseReceived -> {
             capturedResponses.add(responseReceived.getResponse());
         });
+
+        driver.get("https://www.lambdatest.com/");
 
         assertNoErrorCodes(capturedResponses);
     }
@@ -205,6 +223,27 @@ public class CaptureHttpTrafficTests {
         Boolean areThereLargeImages = capturedResponses.stream().anyMatch(r -> r.getMimeType() == ResourceType.IMAGE.toString() &&
                 r.getHeaders() != null && Integer.parseInt(r.getHeaders().get("Content-Length").toString()) < contentLength);
         Assertions.assertFalse(areThereLargeImages, String.format("Larger than %s images detected.", contentLength));
+    }
+
+    @Test
+    public void requestsServedFromCache() {
+        var devToolsDriver = (HasDevTools)driver;
+        DevTools devTools = devToolsDriver.getDevTools();
+        devTools.createSession();
+
+        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+
+        devTools.send(Network.setCacheDisabled(true));
+        devTools.send(Network.clearBrowserCache());
+        devTools.send(Network.clearBrowserCookies());
+
+        devTools.addListener(requestServedFromCache(), cachedRequest -> {
+            // this is requestId - combine with capture HTTP traffic
+            System.out.println(cachedRequest);
+        });
+
+        driver.get("https://demos.bellatrix.solutions/");
+        driver.get("https://demos.bellatrix.solutions/");
     }
 
     @AfterEach
