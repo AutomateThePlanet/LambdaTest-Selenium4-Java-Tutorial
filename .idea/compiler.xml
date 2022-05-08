@@ -11,6 +11,7 @@
         <module name="chapter7-cdp-troubleshooting" />
         <module name="chapter2-relative-locators-selenium4" />
         <module name="chapter5-geolocation-testing" />
+        <module name="chapter9-cdp-performancemetrics" />
         <module name="chapter2-relativelocators-selenium4" />
         <module name="chapter3-initializationscripts-selenium4" />
         <module name="chapter6-responsive-testing" />
@@ -24,6 +25,8 @@
       <module name="chapter6-responsive-testing" target="15" />
       <module name="chapter7-cdp-troubleshooting" target="15" />
       <module name="chapter8-cdp-capturehttptraffic" target="15" />
+      <module name="chapter8-cdp-capturehttptraffic (1)" target="15" />
+      <module name="chapter9-cdp-performancemetrics" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/chapter6-responsive-testing/chapter6-responsive-testing.iml" filepath="$PROJECT_DIR$/chapter6-responsive-testing/chapter6-responsive-testing.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter7-cdp-troubleshooting/chapter7-cdp-troubleshooting.iml" filepath="$PROJECT_DIR$/chapter7-cdp-troubleshooting/chapter7-cdp-troubleshooting.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter8-cdp-capturehttptraffic/chapter8-cdp-capturehttptraffic.iml" filepath="$PROJECT_DIR$/chapter8-cdp-capturehttptraffic/chapter8-cdp-capturehttptraffic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter9-cdp-performancemetrics/chapter9-cdp-performancemetrics.iml" filepath="$PROJECT_DIR$/chapter9-cdp-performancemetrics/chapter9-cdp-performancemetrics.iml" />
     </modules>
   </component>
 </project>
