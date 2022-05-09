@@ -13,11 +13,13 @@
         <module name="chapter5-geolocation-testing" />
         <module name="chapter9-cdp-performancemetrics" />
         <module name="chapter2-relativelocators-selenium4" />
+        <module name="chapter10-cdp-networkemulation" />
         <module name="chapter3-initializationscripts-selenium4" />
         <module name="chapter6-responsive-testing" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="chapter10-cdp-networkemulation" target="15" />
       <module name="chapter2-relative-locators-selenium4" target="15" />
       <module name="chapter2-relativelocators-selenium4" target="15" />
       <module name="chapter3-initializationscripts-selenium4" target="15" />

@@ -2,7 +2,12 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v96.network.Network;
@@ -10,21 +15,16 @@ import org.openqa.selenium.devtools.v96.network.model.ConnectionType;
 import org.openqa.selenium.devtools.v96.performance.Performance;
 import org.openqa.selenium.devtools.v96.performance.model.Metric;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.Augmenter;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.Duration;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.openqa.selenium.remote.http.Contents.utf8String;
-
-public class DevToolsCapturePerformanceMetricsLambdaTestTests {
+public class DevToolsNetworkEmulationTests {
     private final int WAIT_FOR_ELEMENT_TIMEOUT = 30;
     private WebDriver driver;
     private WebDriverWait webDriverWait;
@@ -36,44 +36,43 @@ public class DevToolsCapturePerformanceMetricsLambdaTestTests {
     }
 
     @BeforeEach
-    public void setUp() throws MalformedURLException {
+    public void setUp() {
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(WAIT_FOR_ELEMENT_TIMEOUT));
+        actions = new Actions(driver);
+    }
 
+    @Test
+    public void openInstalledPwaApp() {
+        var options = new ChromeOptions();
+        options.addArguments("app-id=oonpikaeehoaiikcikkcnadhgaigameg");
+        var _driver = new ChromeDriver(options);
+        _driver.navigate().to("pathTo\\Starbucks.lnk");
     }
 
     @ParameterizedTest(name = "{index}. verify todo list created successfully when technology = {0}")
     @ValueSource(strings = {
             "Backbone.js",
             "AngularJS",
-            "React",
-            "Vue.js",
-            "CanJS",
-            "Ember.js",
-            "KnockoutJS",
-            "Marionette.js",
-            "Polymer",
-            "Angular 2.0",
-            "Dart",
-            "Elm",
-            "Closure",
-            "Vanilla JS",
-            "jQuery",
-            "cujoJS",
-            "Spine",
-            "Dojo",
-            "Mithril",
-            "Kotlin + React",
-            "Firebase + AngularJS",
-            "Vanilla ES6"
-    })
-    public void measurePerformanceFor(String technology) throws MalformedURLException {
-        initializeSession("measurePerformanceFor" + technology);
 
+    })
+    public void verifyToDoListCreatedSuccessfully_withParams(String technology){
         System.out.println("###############################");
         System.out.println(String.format("\nGET METRICS for %s\n", technology));
         var devToolsDriver = (HasDevTools)driver;
         try (DevTools devTools = devToolsDriver.getDevTools()) {
             devTools.createSession();
             devTools.send(Performance.enable(Optional.empty()));
+
+            devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+            devTools.send(Network.emulateNetworkConditions(
+                    false,
+                    20,
+                    20,
+                    50,
+                    Optional.of(ConnectionType.CELLULAR4G)
+            ));
 
             driver.navigate().to("https://todomvc.com/");
             openTechnologyApp(technology);
@@ -90,34 +89,6 @@ public class DevToolsCapturePerformanceMetricsLambdaTestTests {
 
             System.out.println("###############################");
         }
-    }
-
-    private void initializeSession(String testName) throws MalformedURLException {
-        String username = System.getenv("LT_USERNAME");
-        String authkey = System.getenv("LT_ACCESSKEY");
-        String hub = "@hub.lambdatest.com/wd/hub";
-
-        var capabilities = new DesiredCapabilities();
-        capabilities.setCapability("browserName", "Chrome");
-        capabilities.setCapability("browserVersion", "latest");
-        HashMap<String, Object> ltOptions = new HashMap<String, Object>();
-        ltOptions.put("user", username);
-        ltOptions.put("accessKey", authkey);
-        ltOptions.put("build", "Selenium 4");
-        ltOptions.put("name",testName);
-        ltOptions.put("platformName", "Windows 10");
-        ltOptions.put("console", true);
-        ltOptions.put("performance", true);
-        ltOptions.put("seCdp", true);
-        ltOptions.put("selenium_version", "4.0.0");
-        capabilities.setCapability("LT:Options", ltOptions);
-
-        driver = new RemoteWebDriver(new URL("https://" + username + ":" + authkey + hub), capabilities);
-        Augmenter augmenter = new Augmenter();
-        driver = augmenter.augment(driver);
-        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(WAIT_FOR_ELEMENT_TIMEOUT));
-        actions = new Actions(driver);
-        driver.manage().window().maximize();
     }
 
     private String generateRandomString() {

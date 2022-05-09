@@ -1,8 +1,13 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v96.network.Network;
@@ -19,12 +24,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.openqa.selenium.remote.http.Contents.utf8String;
-
-public class DevToolsCapturePerformanceMetricsLambdaTestTests {
+public class DevToolsNetworkEmulationLambdaTestTests {
     private final int WAIT_FOR_ELEMENT_TIMEOUT = 30;
     private WebDriver driver;
     private WebDriverWait webDriverWait;
@@ -75,6 +80,14 @@ public class DevToolsCapturePerformanceMetricsLambdaTestTests {
             devTools.createSession();
             devTools.send(Performance.enable(Optional.empty()));
 
+            devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+            devTools.send(Network.emulateNetworkConditions(
+                    false,
+                    20,
+                    20,
+                    50,
+                    Optional.of(ConnectionType.CELLULAR4G)));
+
             driver.navigate().to("https://todomvc.com/");
             openTechnologyApp(technology);
             for (int i = 0; i <= 99; i += 1) {
@@ -108,6 +121,9 @@ public class DevToolsCapturePerformanceMetricsLambdaTestTests {
         ltOptions.put("platformName", "Windows 10");
         ltOptions.put("console", true);
         ltOptions.put("performance", true);
+
+        ltOptions.put("network",true);
+        ///ltOptions.put("networkThrottling", "Regular 4G");
         ltOptions.put("seCdp", true);
         ltOptions.put("selenium_version", "4.0.0");
         capabilities.setCapability("LT:Options", ltOptions);
