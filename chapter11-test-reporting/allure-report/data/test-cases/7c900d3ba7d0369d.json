@@ -1,0 +1,71 @@
+{
+  "uid" : "7c900d3ba7d0369d",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 11. verify todo list created successfully when technology = Dart",
+  "fullName" : "ToDoExtentReportTests.verifyToDoListCreatedSuccessfully_withParams",
+  "historyId" : "6971ebb3a845d31148155c16680a808e",
+  "time" : {
+    "start" : 1653211772844,
+    "stop" : 1653211776159,
+    "duration" : 3315
+  },
+  "description" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "junit.platform.uniqueid",
+    "value" : "[engine:junit-jupiter]/[class:ToDoExtentReportTests]/[test-template:verifyToDoListCreatedSuccessfully_withParams(java.lang.String)]/[test-template-invocation:#11]"
+  }, {
+    "name" : "feature",
+    "value" : "Junit 5 Data-driven Tests Selenium 4"
+  }, {
+    "name" : "epic",
+    "value" : "Selenium 4 Series"
+  }, {
+    "name" : "story",
+    "value" : "Advanced support for bdd annotations"
+  }, {
+    "name" : "host",
+    "value" : "LWAA-LAPTOP-MEISSA"
+  }, {
+    "name" : "thread",
+    "value" : "14364@LWAA-LAPTOP-MEISSA.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "ToDoExtentReportTests"
+  }, {
+    "name" : "testClass",
+    "value" : "ToDoExtentReportTests"
+  }, {
+    "name" : "testMethod",
+    "value" : "verifyToDoListCreatedSuccessfully_withParams"
+  }, {
+    "name" : "suite",
+    "value" : "ToDoExtentReportTests"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "7c900d3ba7d0369d.json",
+  "parameterValues" : [ ]
+}

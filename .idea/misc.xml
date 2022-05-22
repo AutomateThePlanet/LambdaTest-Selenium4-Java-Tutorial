@@ -12,6 +12,8 @@
         <option value="$PROJECT_DIR$/chapter8-cdp-capturehttptraffic/pom.xml" />
         <option value="$PROJECT_DIR$/chapter10-cdp-networkemulation/pom.xml" />
         <option value="$PROJECT_DIR$/chapter9-cdp-performancemetrics/pom.xml" />
+        <option value="$PROJECT_DIR$/selenium4-cdp/pom.xml" />
+        <option value="$PROJECT_DIR$/chapter11-test-reporting/pom.xml" />
       </list>
     </option>
   </component>

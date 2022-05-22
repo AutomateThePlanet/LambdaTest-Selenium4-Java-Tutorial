@@ -1,0 +1,15 @@
+{
+  "total" : 1,
+  "items" : [ {
+    "uid" : "839b282615d3d6ce13aad7c478552eb2",
+    "name" : "ToDoExtentReportTests",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 24,
+      "unknown" : 0,
+      "total" : 24
+    }
+  } ]
+}

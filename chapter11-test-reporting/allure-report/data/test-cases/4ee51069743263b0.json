@@ -1,0 +1,81 @@
+{
+  "uid" : "4ee51069743263b0",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 3. verify todo list created successfully when technology = React",
+  "fullName" : "ToDoExtentReportTests.verifyToDoListCreatedSuccessfully_withParams",
+  "historyId" : "1b474323d66e608ddbe83ac630dbd97a",
+  "time" : {
+    "start" : 1653212862081,
+    "stop" : 1653212866375,
+    "duration" : 4294
+  },
+  "description" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 1,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "junit.platform.uniqueid",
+    "value" : "[engine:junit-jupiter]/[class:ToDoExtentReportTests]/[test-template:verifyToDoListCreatedSuccessfully_withParams(java.lang.String)]/[test-template-invocation:#3]"
+  }, {
+    "name" : "feature",
+    "value" : "Junit 5 Data-driven Tests Selenium 4"
+  }, {
+    "name" : "epic",
+    "value" : "Selenium 4 Series"
+  }, {
+    "name" : "story",
+    "value" : "Advanced support for bdd annotations"
+  }, {
+    "name" : "host",
+    "value" : "LWAA-LAPTOP-MEISSA"
+  }, {
+    "name" : "thread",
+    "value" : "35612@LWAA-LAPTOP-MEISSA.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "ToDoExtentReportTests"
+  }, {
+    "name" : "testClass",
+    "value" : "ToDoExtentReportTests"
+  }, {
+    "name" : "testMethod",
+    "value" : "verifyToDoListCreatedSuccessfully_withParams"
+  }, {
+    "name" : "suite",
+    "value" : "ToDoExtentReportTests"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ {
+      "uid" : "bf1a9fe76da4ef8",
+      "status" : "passed",
+      "time" : {
+        "start" : 1653211742723,
+        "stop" : 1653211747288,
+        "duration" : 4565
+      }
+    } ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "4ee51069743263b0.json",
+  "parameterValues" : [ ]
+}

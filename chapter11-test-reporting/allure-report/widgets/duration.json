@@ -1,0 +1,241 @@
+[ {
+  "uid" : "37f7e0557432c522",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 4. verify todo list created successfully when technology = Vue.js",
+  "time" : {
+    "start" : 1653212866389,
+    "stop" : 1653212869927,
+    "duration" : 3538
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "33d0a0003e34bb00",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 22. verify todo list created successfully when technology = Vanilla ES6",
+  "time" : {
+    "start" : 1653212962512,
+    "stop" : 1653212965363,
+    "duration" : 2851
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "9ed6fa946c66363f",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 24. verify todo list created successfully when technology = ",
+  "time" : {
+    "start" : 1653212967159,
+    "stop" : 1653212968913,
+    "duration" : 1754
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "1122be3ec7b168e6",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 19. verify todo list created successfully when technology = Mithril",
+  "time" : {
+    "start" : 1653212953368,
+    "stop" : 1653212956209,
+    "duration" : 2841
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "cf27981ba63a29da",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 9. verify todo list created successfully when technology = Polymer",
+  "time" : {
+    "start" : 1653212884914,
+    "stop" : 1653212888903,
+    "duration" : 3989
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "646773a12e919835",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 14. verify todo list created successfully when technology = Vanilla JS",
+  "time" : {
+    "start" : 1653212903217,
+    "stop" : 1653212906463,
+    "duration" : 3246
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "336ad9c8f7f71874",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 12. verify todo list created successfully when technology = Elm",
+  "time" : {
+    "start" : 1653212896635,
+    "stop" : 1653212900037,
+    "duration" : 3402
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "4e7000ae1de6a32d",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 13. verify todo list created successfully when technology = Closure",
+  "time" : {
+    "start" : 1653212900048,
+    "stop" : 1653212903206,
+    "duration" : 3158
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "71c18cc71cb234fd",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 16. verify todo list created successfully when technology = cujoJS",
+  "time" : {
+    "start" : 1653212909746,
+    "stop" : 1653212947021,
+    "duration" : 37275
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "a689092adee26174",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 11. verify todo list created successfully when technology = Dart",
+  "time" : {
+    "start" : 1653212893197,
+    "stop" : 1653212896623,
+    "duration" : 3426
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "78cf3bf7b6c8c4ef",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 8. verify todo list created successfully when technology = Marionette.js",
+  "time" : {
+    "start" : 1653212881070,
+    "stop" : 1653212884904,
+    "duration" : 3834
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "b3bb99a40928c9e0",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 1. verify todo list created successfully when technology = Backbone.js",
+  "time" : {
+    "start" : 1653212852549,
+    "stop" : 1653212857844,
+    "duration" : 5295
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "4ee51069743263b0",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 3. verify todo list created successfully when technology = React",
+  "time" : {
+    "start" : 1653212862081,
+    "stop" : 1653212866375,
+    "duration" : 4294
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "efb26eaa041e5c54",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 5. verify todo list created successfully when technology = CanJS",
+  "time" : {
+    "start" : 1653212869944,
+    "stop" : 1653212873601,
+    "duration" : 3657
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "14a9a39ed4b33b77",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 7. verify todo list created successfully when technology = KnockoutJS",
+  "time" : {
+    "start" : 1653212877492,
+    "stop" : 1653212881059,
+    "duration" : 3567
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "cc85a7de3a29dca4",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 10. verify todo list created successfully when technology = Angular 2.0",
+  "time" : {
+    "start" : 1653212888914,
+    "stop" : 1653212893187,
+    "duration" : 4273
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "89d0613eec0f3e22",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 18. verify todo list created successfully when technology = Dojo",
+  "time" : {
+    "start" : 1653212949964,
+    "stop" : 1653212953358,
+    "duration" : 3394
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "146b62a3fd82fc7b",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 21. verify todo list created successfully when technology = Firebase + AngularJS",
+  "time" : {
+    "start" : 1653212959065,
+    "stop" : 1653212962504,
+    "duration" : 3439
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "6aa2cb027fb479e0",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 20. verify todo list created successfully when technology = Kotlin + React",
+  "time" : {
+    "start" : 1653212956216,
+    "stop" : 1653212959058,
+    "duration" : 2842
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "7d7c04b12fff39ce",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 6. verify todo list created successfully when technology = Ember.js",
+  "time" : {
+    "start" : 1653212873613,
+    "stop" : 1653212877482,
+    "duration" : 3869
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "9fa25f09321c7eb0",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 17. verify todo list created successfully when technology = Spine",
+  "time" : {
+    "start" : 1653212947029,
+    "stop" : 1653212949957,
+    "duration" : 2928
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "d09e4e1c3e98ae09",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 2. verify todo list created successfully when technology = AngularJS",
+  "time" : {
+    "start" : 1653212857969,
+    "stop" : 1653212862069,
+    "duration" : 4100
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "ea00a4e29580ca1b",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 23. verify todo list created successfully when technology = null",
+  "time" : {
+    "start" : 1653212965372,
+    "stop" : 1653212967152,
+    "duration" : 1780
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "af89202da6902611",
+  "name" : "verifyToDoListCreatedSuccessfully_withParams(String) 15. verify todo list created successfully when technology = jQuery",
+  "time" : {
+    "start" : 1653212906474,
+    "stop" : 1653212909731,
+    "duration" : 3257
+  },
+  "status" : "passed",
+  "severity" : "normal"
+} ]

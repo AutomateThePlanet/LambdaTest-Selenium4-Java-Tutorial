@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/chapter10-cdp-networkemulation/chapter10-cdp-networkemulation.iml" filepath="$PROJECT_DIR$/chapter10-cdp-networkemulation/chapter10-cdp-networkemulation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter11-test-reporting/chapter11-test-reporting.iml" filepath="$PROJECT_DIR$/chapter11-test-reporting/chapter11-test-reporting.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter1-upgrade-selenium4/chapter2-relative-locators-selenium4.iml" filepath="$PROJECT_DIR$/chapter1-upgrade-selenium4/chapter2-relative-locators-selenium4.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter2-relativelocators-selenium4/chapter2-relativelocators-selenium4.iml" filepath="$PROJECT_DIR$/chapter2-relativelocators-selenium4/chapter2-relativelocators-selenium4.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter3-initializationscripts-selenium4/chapter3-initializationscripts-selenium4.iml" filepath="$PROJECT_DIR$/chapter3-initializationscripts-selenium4/chapter3-initializationscripts-selenium4.iml" />
