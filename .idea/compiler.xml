@@ -8,29 +8,20 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="chapter8-cdp-capturehttptraffic" />
-        <module name="chapter7-cdp-troubleshooting" />
-        <module name="chapter2-relative-locators-selenium4" />
         <module name="chapter5-geolocation-testing" />
         <module name="chapter9-cdp-performancemetrics" />
         <module name="chapter11-test-reporting" />
         <module name="chapter2-relativelocators-selenium4" />
         <module name="chapter10-cdp-networkemulation" />
         <module name="chapter3-initializationscripts-selenium4" />
+        <module name="chapter12-signup-forms" />
         <module name="chapter6-responsive-testing" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="chapter10-cdp-networkemulation" target="15" />
-      <module name="chapter11-test-reporting" target="15" />
       <module name="chapter2-relative-locators-selenium4" target="15" />
-      <module name="chapter2-relativelocators-selenium4" target="15" />
-      <module name="chapter3-initializationscripts-selenium4" target="15" />
-      <module name="chapter5-geolocation-testing" target="15" />
-      <module name="chapter6-responsive-testing" target="15" />
-      <module name="chapter7-cdp-troubleshooting" target="15" />
-      <module name="chapter8-cdp-capturehttptraffic" target="15" />
       <module name="chapter8-cdp-capturehttptraffic (1)" target="15" />
-      <module name="chapter9-cdp-performancemetrics" target="15" />
+      <module name="LambdaTest-Selenium4-Java-Tutorial" target="18" />
       <module name="selenium4-cdp" target="18" />
     </bytecodeTargetLevel>
   </component>
