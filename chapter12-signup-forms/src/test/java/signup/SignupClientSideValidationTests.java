@@ -6,28 +6,20 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.openqa.selenium.*;
+import org.openqa.selenium.JavascriptException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.events.DomMutationEvent;
-import org.openqa.selenium.devtools.v95.emulation.Emulation;
 import org.openqa.selenium.devtools.v95.log.Log;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.logging.HasLogEvents;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AccountSuccessPage;
 import pages.RegistrationPage;
 
-import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
-import static org.openqa.selenium.devtools.events.CdpEventTypes.domMutation;
-
-public class SignupTests {
+public class SignupClientSideValidationTests {
     private WebDriver driver;
     private List<JavascriptException> jsExceptionsList;
     private List<String> consoleMessages;
@@ -62,170 +54,133 @@ public class SignupTests {
                 });
     }
 
-    // happy path
+    // validations
     @Test
-    public void userCreatedSuccessfully_when_allRequiredFieldsField_and_clickContinueButton() {
-       var user = UserFactory.createDefault();
+    public void privacyPolicyNotCheckedValidationDisplayed_when_notAgree() {
+        var user = UserFactory.createDefault();
+        user.setAgreedPrivacyPolicy(false);
 
         registrationPage.open();
         registrationPage.register(user, false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        registrationPage.assertPrivacyPolicyAgreementValidation();
     }
 
     @Test
-    public void userCreatedSuccessfully_when_allRequiredFieldsField_and_pressContinueButtonWithEnter() {
+    public void firstNameValidationDisplayed_when_emptyFirstName() {
         var user = UserFactory.createDefault();
+        user.setFirstName("");
 
         registrationPage.open();
         registrationPage.register(user, false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
-
-    // boundary values
-
-    @Test
-    public void userCreatedSuccessfully_when_firstName1Character() {
-        var user = UserFactory.createDefault();
-        user.setFirstName(StringUtils.repeat("A", 1));
-
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        registrationPage.assertFirstNameValidation();
     }
 
     @Test
-    public void userCreatedSuccessfully_when_firstName32Characters() {
+    public void firstNameValidationDisplayed_when_firstName33Characters() {
         var user = UserFactory.createDefault();
-        user.setFirstName(StringUtils.repeat("A", 32));
+        user.setFirstName(StringUtils.repeat("AAA", 33));
 
         registrationPage.open();
         registrationPage.register(user, false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        registrationPage.assertFirstNameValidation();
     }
 
     @Test
-    public void userCreatedSuccessfully_when_lastName1Character() {
+    public void lastNameValidationDisplayed_when_emptyLastName() {
         var user = UserFactory.createDefault();
-        user.setLastName(StringUtils.repeat("A", 1));
+        user.setLastName("");
 
         registrationPage.open();
         registrationPage.register(user, false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        registrationPage.assertLastNameValidation();
     }
 
     @Test
-    public void userCreatedSuccessfully_when_lastName32Characters() {
+    public void lastNameValidationDisplayed_when_lastName33Characters() {
         var user = UserFactory.createDefault();
-        user.setLastName(StringUtils.repeat("A", 32));
+        user.setLastName(StringUtils.repeat("AAA", 33));
 
         registrationPage.open();
         registrationPage.register(user, false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        registrationPage.assertLastNameValidation();
     }
 
     @Test
-    public void userCreatedSuccessfully_when_email4Character() {
+    public void emailValidationDisplayed_when_emptyEmail() {
         var user = UserFactory.createDefault();
-        user.setEmail("a@a.a");
+        user.setEmail("");
 
         registrationPage.open();
         registrationPage.register(user, false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        registrationPage.assertEmailValidation();
     }
 
     @Test
-    public void userCreatedSuccessfully_when_email32Characters() {
+    public void emailValidationDisplayed_when_email33Characters() {
         var user = UserFactory.createDefault();
-        user.setEmail("a@" + StringUtils.repeat("A", 26) + ".com");
+        user.setEmail("aa@" + StringUtils.repeat("A", 26) + ".com");
 
         registrationPage.open();
         registrationPage.register(user, false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        registrationPage.assertEmailValidation();
     }
 
     @Test
-    public void userCreatedSuccessfully_when_telephone3Character() {
+    public void emailValidationDisplayed_when_incorrectEmailSet() {
         var user = UserFactory.createDefault();
-        user.setTelephone("123");
+        user.setEmail("aaaa");
 
         registrationPage.open();
         registrationPage.register(user, false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
-
-    @ParameterizedTest(name = "{index}. user created successfully when correct telephone set for country = {0}")
-    @ValueSource(strings = {
-            "+9370123456789",
-            "+358457012345678",
-            "+3584570123456789",
-            "+35845701234567890",
-            "+35567123456789",
-            "+2135123456789",
-            "+97335512345678",
-    })
-    public void userCreatedSuccessfully_when_correctTelephoneSetForCountry(String telephone) {
-        var user = UserFactory.createDefault();
-        user.setTelephone("telephone");
-
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        registrationPage.assertEmailValidation();
     }
 
     @Test
-    public void userCreatedSuccessfully_when_telephone32Characters() {
+    public void telephoneValidationDisplayed_when_emptyTelephone() {
         var user = UserFactory.createDefault();
-        user.setTelephone(StringUtils.repeat("9", 33));
+        user.setTelephone("");
 
         registrationPage.open();
         registrationPage.register(user, false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        registrationPage.assertLastNameValidation();
     }
 
     @Test
-    public void userCreatedSuccessfully_when_password4Character() {
+    public void telephoneValidationDisplayed_when_telephone33Characters() {
         var user = UserFactory.createDefault();
-        user.setPassword("1234");
-        user.setPasswordConfirm("1234");
+        user.setTelephone(StringUtils.repeat("3", 33));
 
         registrationPage.open();
         registrationPage.register(user, false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        registrationPage.assertLastNameValidation();
     }
 
     @Test
-    public void userCreatedSuccessfully_when_password20Characters() {
+    public void passwordDisplayedEncrypted_when_typePassword() {
         var user = UserFactory.createDefault();
-        user.setPassword(StringUtils.repeat("9", 20));
-        user.setPasswordConfirm(StringUtils.repeat("9", 20));
 
         registrationPage.open();
-        registrationPage.register(user, false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        Assertions.assertEquals("password", registrationPage.passwordInput().getAttribute("type"));
     }
 
     @Test
-    public void userCreatedSuccessfully_when_newsletterSubscribeTrue() {
+    public void passwordConfirmDisplayedEncrypted_when_typePassword() {
         var user = UserFactory.createDefault();
-        user.setShouldSubscribe(true);
 
         registrationPage.open();
-        registrationPage.register(user, false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        Assertions.assertEquals("password", registrationPage.passwordConfirmInput().getAttribute("type"));
     }
 
     @AfterEach

@@ -2,9 +2,11 @@ package pages;
 
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import models.User;
+import org.openqa.selenium.interactions.Actions;
 
 public class RegistrationPage {
     private final WebDriver driver;
@@ -86,7 +88,7 @@ public class RegistrationPage {
     }
 
     public WebElement privacyPolicyCheckbox() {
-        return driver.findElement(By.id("input-agree"));
+        return driver.findElement(By.xpath("//input[@id='input-agree']/following-sibling::label"));
     }
 
     public WebElement privacyPolicyLink() {
@@ -98,7 +100,7 @@ public class RegistrationPage {
     }
 
     public void open() {
-        driver.navigate().to("http://demos.bellatrix.solutions/");
+        driver.navigate().to("https://ecommerce-playground.lambdatest.io/index.php?route=account/register");
     }
 
     public void openPrivacyPolicy() {
@@ -154,16 +156,34 @@ public class RegistrationPage {
         Assertions.assertEquals(expectedText, actualPlaceHolder);
     }
 
-    public void register(User user) {
-        fistNameInput().sendKeys(user.getFirstName());
-        lastNameInput().sendKeys(user.getLastName());
-        emailInput().sendKeys(user.getEmail());
-        telephoneInput().sendKeys(user.getTelephone());
-        passwordInput().sendKeys(user.getPassword());
-        passwordConfirmInput().sendKeys(user.getPasswordConfirm());
-        if (user.getShouldSubscribe()) {
+    public void register(User user, Boolean useEnter) {
+        if (!user.getFirstName().isEmpty()) {
+            fistNameInput().sendKeys(user.getFirstName());
+        }
+
+        if (!user.getLastName().isEmpty()) {
+            lastNameInput().sendKeys(user.getLastName());
+        }
+
+        if (!user.getEmail().isEmpty()) {
+            emailInput().sendKeys(user.getEmail());
+        }
+
+        if (!user.getTelephone().isEmpty()) {
+            telephoneInput().sendKeys(user.getTelephone());
+        }
+
+        if (!user.getPassword().isEmpty()) {
+            passwordInput().sendKeys(user.getPassword());
+        }
+
+        if (!user.getPasswordConfirm().isEmpty()) {
+            passwordConfirmInput().sendKeys(user.getPasswordConfirm());
+        }
+
+        if (user.getShouldSubscribe() && !newsletterSubscribeYes().isSelected()) {
             newsletterSubscribeYes().click();
-        } else if (!user.getShouldSubscribe()) {
+        } else if (!user.getShouldSubscribe() && !newsletterSubscribeNo().isSelected()) {
             newsletterSubscribeNo().click();
         }
 
@@ -171,6 +191,10 @@ public class RegistrationPage {
            privacyPolicyCheckbox().click();
         }
 
-        continueButton().click();
+        if (useEnter) {
+            continueButton().sendKeys(Keys.ENTER);
+        } else {
+            continueButton().click();
+        }
     }
 }

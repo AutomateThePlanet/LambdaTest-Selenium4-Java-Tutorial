@@ -1,3 +1,5 @@
+package troubleshooting;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
@@ -67,7 +69,7 @@ public class DevToolsTroubleshootingTests {
         devTools.send(Log.enable());
         devTools.addListener(Log.entryAdded(),
                 logEntry -> {
-                    consoleMessages.add("log: " +logEntry.getText() + "level: " + logEntry.getLevel());
+                    consoleMessages.add("log: " + logEntry.getText() + "level: " + logEntry.getLevel());
                 });
 
         driver.navigate().to("https://www.gps-coordinates.net/");
