@@ -2,16 +2,25 @@ package models;
 
 public class User {
     private String firstName;
+    private String userName;
     private String lastName;
     private String email;
     private String telephone;
     private String password;
     private String passwordConfirm;
     private Boolean shouldSubscribe;
-    private Boolean agreePrivacyPolicy;
+    private Boolean agreedPrivacyPolicy;
 
     public String getFirstName() {
         return firstName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setFirstName(String firstName) {
@@ -66,11 +75,11 @@ public class User {
         this.shouldSubscribe = shouldSubscribe;
     }
 
-    public Boolean getAgreePrivacyPolicy() {
-        return agreePrivacyPolicy;
+    public Boolean getAgreedPrivacyPolicy() {
+        return agreedPrivacyPolicy;
     }
 
-    public void setAgreePrivacyPolicy(Boolean agreePrivacyPolicy) {
-        this.agreePrivacyPolicy = agreePrivacyPolicy;
+    public void setAgreedPrivacyPolicy(Boolean agreedPrivacyPolicy) {
+        this.agreedPrivacyPolicy = agreedPrivacyPolicy;
     }
 }

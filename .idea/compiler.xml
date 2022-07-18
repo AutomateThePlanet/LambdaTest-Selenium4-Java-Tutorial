@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="chapter8-cdp-capturehttptraffic" />
+        <module name="chapter13-email-testing" />
         <module name="chapter5-geolocation-testing" />
         <module name="chapter9-cdp-performancemetrics" />
         <module name="chapter11-test-reporting" />

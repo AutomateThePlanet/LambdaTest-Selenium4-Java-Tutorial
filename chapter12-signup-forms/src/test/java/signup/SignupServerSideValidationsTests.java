@@ -4,23 +4,14 @@ import factories.UserFactory;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.openqa.selenium.JavascriptException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v95.log.Log;
 import pages.AccountSuccessPage;
 import pages.RegistrationPage;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class SignupServerSideValidationsTests {
     private WebDriver driver;
@@ -39,7 +30,7 @@ public class SignupServerSideValidationsTests {
         prefs.put("profile.managed_default_content_settings.javascript", 2);
         options.setExperimentalOption("prefs", prefs);
 
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
         registrationPage = new RegistrationPage(driver);
         accountSuccessPage = new AccountSuccessPage(driver);
     }
@@ -48,7 +39,7 @@ public class SignupServerSideValidationsTests {
     @Test
     public void privacyPolicyNotCheckedValidationDisplayed_when_notAgree() {
         var user = UserFactory.createDefault();
-        user.setAgreedPrivacyPolicy(false);
+        user.setAgreePrivacyPolicy(false);
 
         registrationPage.open();
         registrationPage.register(user, false);

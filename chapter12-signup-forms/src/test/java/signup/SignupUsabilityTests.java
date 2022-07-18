@@ -55,14 +55,14 @@ public class SignupUsabilityTests {
     public void correctLoginLinkSet_when_navigateToRegistrationPage() {
         registrationPage.open();
 
-        Assertions.assertEquals("https://ecommerce-playground.lambdatest.io/index.php?route=account/login", registrationPage.loginPageLink());
+        Assertions.assertEquals("https://ecommerce-playground.lambdatest.io/index.php?route=account/login", registrationPage.loginPageLink().getAttribute("href"));
     }
 
     @Test
     public void correctPrivacyPolicyLinkSet_when_navigateToRegistrationPage() {
         registrationPage.open();
 
-        Assertions.assertEquals("https://ecommerce-playground.lambdatest.io/index.php?route=information/information/agree&information_id=3", registrationPage.privacyPolicyLink());
+        Assertions.assertEquals("https://ecommerce-playground.lambdatest.io/index.php?route=information/information/agree&information_id=3", registrationPage.privacyPolicyLink().getAttribute("href"));
     }
 
     // validate labels

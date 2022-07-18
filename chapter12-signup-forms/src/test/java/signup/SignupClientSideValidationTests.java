@@ -4,8 +4,6 @@ import factories.UserFactory;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.JavascriptException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -58,7 +56,7 @@ public class SignupClientSideValidationTests {
     @Test
     public void privacyPolicyNotCheckedValidationDisplayed_when_notAgree() {
         var user = UserFactory.createDefault();
-        user.setAgreedPrivacyPolicy(false);
+        user.setAgreePrivacyPolicy(false);
 
         registrationPage.open();
         registrationPage.register(user, false);
@@ -80,7 +78,7 @@ public class SignupClientSideValidationTests {
     @Test
     public void firstNameValidationDisplayed_when_firstName33Characters() {
         var user = UserFactory.createDefault();
-        user.setFirstName(StringUtils.repeat("AAA", 33));
+        user.setFirstName(StringUtils.repeat("A", 33));
 
         registrationPage.open();
         registrationPage.register(user, false);
@@ -102,7 +100,7 @@ public class SignupClientSideValidationTests {
     @Test
     public void lastNameValidationDisplayed_when_lastName33Characters() {
         var user = UserFactory.createDefault();
-        user.setLastName(StringUtils.repeat("AAA", 33));
+        user.setLastName(StringUtils.repeat("A", 33));
 
         registrationPage.open();
         registrationPage.register(user, false);

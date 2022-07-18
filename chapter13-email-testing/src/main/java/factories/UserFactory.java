@@ -14,13 +14,14 @@ public class UserFactory {
 
     public static User createDefault() {
         var user = new User();
-        user.setEmail(TimestampBuilder.buildUniqueTextByPrefix(faker.internet().safeEmailAddress()));
+        user.setEmail(TimestampBuilder.buildUniqueTextBySuffix("test@mailsurp.com"));
         user.setFirstName(faker.name().firstName());
         user.setLastName(faker.name().lastName());
+        user.setUserName(faker.name().username());
         user.setTelephone(faker.phoneNumber().phoneNumber());
         user.setPassword(DEFAULT_PASSWORD);
         user.setPasswordConfirm(DEFAULT_PASSWORD);
-        user.setAgreePrivacyPolicy(true);
+        user.setAgreedPrivacyPolicy(true);
         user.setShouldSubscribe(false);
         return user;
     }

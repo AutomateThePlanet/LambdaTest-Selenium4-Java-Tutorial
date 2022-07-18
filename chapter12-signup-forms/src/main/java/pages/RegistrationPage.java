@@ -6,7 +6,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import models.User;
-import org.openqa.selenium.interactions.Actions;
 
 public class RegistrationPage {
     private final WebDriver driver;
@@ -107,10 +106,6 @@ public class RegistrationPage {
         privacyPolicyLink().click();
     }
 
-    public String getPlaceholder(WebElement element) {
-        return element.getAttribute("placeholder");
-    }
-
     public void assertFirstNameValidation() {
         var actualError = getErrorMessage("First Name");
         Assertions.assertEquals("First Name must be between 1 and 32 characters!", actualError);
@@ -156,6 +151,10 @@ public class RegistrationPage {
         Assertions.assertEquals(expectedText, actualPlaceHolder);
     }
 
+    public String getPlaceholder(WebElement element) {
+        return element.getAttribute("placeholder");
+    }
+
     public void register(User user, Boolean useEnter) {
         if (!user.getFirstName().isEmpty()) {
             fistNameInput().sendKeys(user.getFirstName());
@@ -187,7 +186,7 @@ public class RegistrationPage {
             newsletterSubscribeNo().click();
         }
 
-        if (user.getAgreedPrivacyPolicy()) {
+        if (user.getAgreePrivacyPolicy()) {
            privacyPolicyCheckbox().click();
         }
 
