@@ -117,9 +117,9 @@ public class MailslurpService {
         driver.get(file.toPath().toUri().toString());
 
         if (cloudExecuted) {
-
-        } else {
             driver.get("http://local-folder.lambdatest.com/" + fileName);
+        } else {
+            driver.get(file.toPath().toUri().toString());
         }
 
         return htmlBody;

@@ -27,12 +27,10 @@ public class TestmailService {
         htmlBody = htmlBody.replace("\n", "").replace("\\/", "/").replace("\\\"", "\"");
         String fileName = String.format("%s.html", TimestampBuilder.getGuid());
         var file = writeStringToTempFile(htmlBody);
-        driver.get(file.toPath().toUri().toString());
-
         if (cloudExecuted) {
-
-        } else {
             driver.get("http://local-folder.lambdatest.com/" + fileName);
+        } else {
+            driver.get(file.toPath().toUri().toString());
         }
 
         return htmlBody;
