@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class TestmailService {
     private static final String EMAIL_SERVICE_URL = "https://api.testmail.app/";
-    private static final String API_KEY = "0877e68e-17fb-4ecf-93e3";
+    private static final String API_KEY = "0877e68e";
     private static final String NAMESPACE = "ihlzk";
 
     @SneakyThrows

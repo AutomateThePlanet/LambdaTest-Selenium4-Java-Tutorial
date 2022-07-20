@@ -32,9 +32,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class MailslurpService {
-    private static ApiClient defaultClient = Configuration.getDefaultApiClient();
+    private static ApiClient defaultClient;
     private static InboxControllerApi inboxControllerApi;
-    private static String API_KEY = "52b1b4382455222921f4d6da2006ebfe";
+    private static String API_KEY = "52b1b438245522";
     private static final Long TIMEOUT = 30000L;
 
     static {
@@ -86,7 +86,7 @@ public class MailslurpService {
         return receivedEmail;
     }
 
-    private static void sendEmail(InboxDto inbox, String toEmail) throws ApiException {
+    public static void sendEmail(InboxDto inbox, String toEmail) throws ApiException {
         var emailBody = ResourcesReader.getFileAsString(MailslurpService.class, "sample-email.html");
         // send HTML body email
         SendEmailOptions sendEmailOptions = new SendEmailOptions()

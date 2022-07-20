@@ -9,6 +9,7 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.mailslurp.apis.*;
@@ -27,15 +28,18 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+import com.microsoft.cognitiveservices.speech.*;
+import com.microsoft.cognitiveservices.speech.audio.*;
+
 public class EmailInboxesTests {
+    private static ApiClient defaultClient;
+    private static InboxControllerApi inboxControllerApi;
+    private static String API_KEY = "52b1b4382455222921";
     private WebDriver driver;
-    private static ApiClient defaultClient = Configuration.getDefaultApiClient();
-    private static InboxControllerApi  inboxControllerApi;
-    private String API_KEY = "52b1b4382455222921f4d6da2006ebfe5806d58c";
     private static final Long TIMEOUT = 30000L;
 
     @BeforeAll
@@ -87,7 +91,6 @@ public class EmailInboxesTests {
 
         String email = inbox.getEmailAddress();
         user.setEmail(email);
-        var currentTime = OffsetDateTime.ofInstant(Instant.now(), ZoneId.systemDefault());
 
         driver.navigate().to("https://timelesstales.in/wp-login.php?action=register");
         var usernameInput = driver.findElement(By.id("user_login"));
@@ -97,9 +100,12 @@ public class EmailInboxesTests {
         emailInput.sendKeys(user.getEmail());
         submitButton.click();
 
+        var currentTime = OffsetDateTime.ofInstant(Instant.now(), ZoneId.systemDefault());
         var waitForControllerApi = new WaitForControllerApi(defaultClient);
+
         Email receivedEmail = waitForControllerApi
                 .waitForLatestEmail(inbox.getId(), TIMEOUT, false, null, currentTime, null, 10000L);
+
         var emailLink =
                 Arrays.stream(receivedEmail.getBody().split(System.getProperty("line.separator")))
                         .filter(l -> l.contains("login=")).findFirst().get();
@@ -139,7 +145,8 @@ public class EmailInboxesTests {
         Email receivedEmail = waitForControllerApi
                 .waitForLatestEmail(inbox.getId(), TIMEOUT, false, null, currentTime, null, 10000L);
 
-        TestmailService.loadEmailBody(driver, receivedEmail.getBody(), false);
+        loadEmailBody(driver, receivedEmail.getBody());
+
         var myAccountLink = driver.findElement(By.xpath("//a[contains(text(), 'My Account')]"));
         myAccountLink.click();
 
@@ -147,7 +154,8 @@ public class EmailInboxesTests {
         wait.until(ExpectedConditions.urlToBe("https://accounts.lambdatest.com/login"));
     }
 
-    private static void sendEmail(InboxDto inbox, String toEmail) throws ApiException {
+    @SneakyThrows
+    private static void sendEmail(InboxDto inbox, String toEmail) {
         var emailBody = ResourcesReader.getFileAsString(EmailInboxesTests.class, "sample-email.html");
         // send HTML body email
         SendEmailOptions sendEmailOptions = new SendEmailOptions()
@@ -161,7 +169,7 @@ public class EmailInboxesTests {
     @SneakyThrows
     private static String loadEmailBody(WebDriver driver, String htmlBody) {
         htmlBody = htmlBody.replace("\n", "").replace("\\/", "/").replace("\\\"", "\"");
-        String fileName = String.format("%s.html", TimestampBuilder.getGuid());
+        //String fileName = String.format("%s.html", TimestampBuilder.getGuid());
         var file = writeStringToTempFile(htmlBody);
         driver.get(file.toPath().toUri().toString());
 

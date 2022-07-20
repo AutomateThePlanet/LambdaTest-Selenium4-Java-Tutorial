@@ -1,7 +1,18 @@
 package signup;
 
+import com.mailslurp.apis.InboxControllerApi;
+import com.mailslurp.apis.WaitForControllerApi;
+import com.mailslurp.clients.ApiClient;
+import com.mailslurp.clients.ApiException;
+import com.mailslurp.clients.Configuration;
+import com.mailslurp.models.Email;
+import com.mailslurp.models.InboxDto;
+import com.mailslurp.models.SendEmailOptions;
 import factories.UserFactory;
+import infrastructure.MailslurpService;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import lombok.SneakyThrows;
+import okhttp3.OkHttpClient;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.devtools.DevTools;
@@ -17,22 +29,35 @@ import org.openqa.selenium.devtools.v95.log.Log;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AccountSuccessPage;
 import pages.RegistrationPage;
+import utilities.ResourcesReader;
+import utilities.TimestampBuilder;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 public class EmailInboxesLambdatestTests {
     private WebDriver driver;
-    private List<JavascriptException> jsExceptionsList;
-    private List<String> consoleMessages;
-    private RegistrationPage registrationPage;
-    private AccountSuccessPage accountSuccessPage;
+    private static ApiClient defaultClient = Configuration.getDefaultApiClient();
+    private static InboxControllerApi  inboxControllerApi;
+    private String API_KEY = "52b1b438245522292";
+    private static final Long TIMEOUT = 30000L;
 
     @BeforeAll
     public static void setUpClass() {
@@ -60,214 +85,108 @@ public class EmailInboxesLambdatestTests {
         capabilities.setCapability("LT:Options", ltOptions);
 
         driver = new RemoteWebDriver(new URL("https://" + username + ":" + authkey + hub), capabilities);
-        Augmenter augmenter = new Augmenter();
-        driver = augmenter.augment(driver);
         driver.manage().window().maximize();
 
-        registrationPage = new RegistrationPage(driver);
-        accountSuccessPage = new AccountSuccessPage(driver);
+        // IMPORTANT set timeout for the http client
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .build();
 
-        DevTools devTools = ((HasDevTools)driver).getDevTools();
-        devTools.createSession();
+        defaultClient = Configuration.getDefaultApiClient();
 
-        // configure JS exceptions logging
-        jsExceptionsList = new ArrayList<>();
-        Consumer<JavascriptException> addEntry = jsExceptionsList::add;
-        devTools.getDomains().events().addJavascriptExceptionListener(addEntry);
+        // IMPORTANT set api client timeouts
+        defaultClient.setConnectTimeout(TIMEOUT.intValue());
+        defaultClient.setWriteTimeout(TIMEOUT.intValue());
+        defaultClient.setReadTimeout(TIMEOUT.intValue());
 
-        // configure console messages logging
-        List<String> consoleMessages = new ArrayList<>();
-        devTools.send(Log.enable());
-        devTools.addListener(Log.entryAdded(),
-                logEntry -> {
-                    consoleMessages.add("log: " + logEntry.getText() + "level: " + logEntry.getLevel());
-                });
-    }
+        // IMPORTANT set API KEY and client
+        defaultClient.setHttpClient(httpClient);
+        defaultClient.setApiKey(API_KEY);
 
-    // happy path
-    @Test
-    public void userCreatedSuccessfully_when_allRequiredFieldsField_and_clickContinueButton() {
-        var user = UserFactory.createDefault();
-
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        inboxControllerApi = new InboxControllerApi(defaultClient);
     }
 
     @Test
-    public void userCreatedSuccessfully_when_allRequiredFieldsField_and_pressContinueButtonWithEnter() {
+    public void userCreatedSuccessfully_when_validateEmail() throws ApiException {
         var user = UserFactory.createDefault();
 
-        registrationPage.open();
-        registrationPage.register(user, false);
+        InboxDto inbox = inboxControllerApi.createInbox(
+                null,
+                Arrays.asList(),
+                user.getFirstName(),
+                "description_example",
+                true,
+                false,
+                null,
+                600000L,
+                false,
+                String.valueOf(InboxDto.InboxTypeEnum.HTTP_INBOX),
+                false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
+        String email = inbox.getEmailAddress();
+        user.setEmail(email);
+        var currentTime = OffsetDateTime.ofInstant(Instant.now(), ZoneId.systemDefault());
 
-    // boundary values
+        driver.navigate().to("https://timelesstales.in/wp-login.php?action=register");
+        var usernameInput = driver.findElement(By.id("user_login"));
+        var emailInput = driver.findElement(By.id("user_email"));
+        var submitButton = driver.findElement(By.id("wp-submit"));
+        usernameInput.sendKeys(user.getFirstName());
+        emailInput.sendKeys(user.getEmail());
+        submitButton.click();
 
-    @Test
-    public void userCreatedSuccessfully_when_firstName1Character() {
-        var user = UserFactory.createDefault();
-        user.setFirstName(StringUtils.repeat("A", 1));
+        var waitForControllerApi = new WaitForControllerApi(defaultClient);
+        Email receivedEmail = waitForControllerApi
+                .waitForLatestEmail(inbox.getId(), TIMEOUT, false, null, currentTime, null, 10000L);
+        var emailLink =
+                Arrays.stream(receivedEmail.getBody().split(System.getProperty("line.separator")))
+                        .filter(l -> l.contains("login=")).findFirst().get();
 
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
-
-    @Test
-    public void userCreatedSuccessfully_when_firstName32Characters() {
-        var user = UserFactory.createDefault();
-        user.setFirstName(StringUtils.repeat("A", 32));
-
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
-
-    @Test
-    public void userCreatedSuccessfully_when_lastName1Character() {
-        var user = UserFactory.createDefault();
-        user.setLastName(StringUtils.repeat("A", 1));
-
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
-
-    @Test
-    public void userCreatedSuccessfully_when_lastName32Characters() {
-        var user = UserFactory.createDefault();
-        user.setLastName(StringUtils.repeat("A", 32));
-
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        driver.navigate().to(emailLink);
+        var generatePassButton = driver.findElement(By.xpath("//button[text()='Generate Password']"));
+        generatePassButton.click();
+        var savePassButton = driver.findElement(By.id("wp-submit"));
+        savePassButton.click();
     }
 
     @Test
-    public void userCreatedSuccessfully_when_email4Character() {
+    public void interactWithEmailBody() throws ApiException {
         var user = UserFactory.createDefault();
-        user.setEmail("a@a.a");
 
-        registrationPage.open();
-        registrationPage.register(user, false);
+        var inboxControllerApi = new InboxControllerApi(defaultClient);
+        var inbox = inboxControllerApi.createInbox(
+                null,
+                Arrays.asList(),
+                user.getFirstName(),
+                "description_example",
+                true,
+                false,
+                null,
+                600000L,
+                false,
+                String.valueOf(InboxDto.InboxTypeEnum.HTTP_INBOX),
+                false);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
+        String email = inbox.getEmailAddress();
+        user.setEmail(email);
 
-    @Test
-    public void userCreatedSuccessfully_when_email32Characters() {
-        var user = UserFactory.createDefault();
-        user.setEmail("a@" + StringUtils.repeat("A", 26) + ".com");
+        MailslurpService.sendEmail(inbox, email);
 
-        registrationPage.open();
-        registrationPage.register(user, false);
+        var currentTime = OffsetDateTime.ofInstant(Instant.now(), ZoneId.systemDefault());
+        Email receivedEmail = MailslurpService.waitForLatestEmail(inbox, currentTime);
 
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
+        MailslurpService.loadEmailBody(driver, receivedEmail.getBody(), true);
+        var myAccountLink = driver.findElement(By.xpath("//a[contains(text(), 'My Account')]"));
+        myAccountLink.click();
 
-    @Test
-    public void userCreatedSuccessfully_when_telephone3Character() {
-        var user = UserFactory.createDefault();
-        user.setTelephone("123");
-
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
-
-    @ParameterizedTest(name = "{index}. user created successfully when correct telephone set for country = {0}")
-    @ValueSource(strings = {
-            "+9370123456789",
-            "+358457012345678",
-            "+3584570123456789",
-            "+35845701234567890",
-            "+35567123456789",
-            "+2135123456789",
-            "+97335512345678",
-    })
-    public void userCreatedSuccessfully_when_correctTelephoneSetForCountry(String telephone) {
-        var user = UserFactory.createDefault();
-        user.setTelephone("telephone");
-
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
-
-    @Test
-    public void userCreatedSuccessfully_when_telephone32Characters() {
-        var user = UserFactory.createDefault();
-        user.setTelephone(StringUtils.repeat("9", 33));
-
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
-
-    @Test
-    public void userCreatedSuccessfully_when_password4Character() {
-        var user = UserFactory.createDefault();
-        user.setPassword("1234");
-        user.setPasswordConfirm("1234");
-
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
-
-    @Test
-    public void userCreatedSuccessfully_when_password20Characters() {
-        var user = UserFactory.createDefault();
-        user.setPassword(StringUtils.repeat("9", 20));
-        user.setPasswordConfirm(StringUtils.repeat("9", 20));
-
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
-    }
-
-    @Test
-    public void userCreatedSuccessfully_when_newsletterSubscribeTrue() {
-        var user = UserFactory.createDefault();
-        user.setShouldSubscribe(true);
-
-        registrationPage.open();
-        registrationPage.register(user, false);
-
-        accountSuccessPage.assertAccountCreatedSuccessfully();
+        var wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.urlToBe("https://accounts.lambdatest.com/login"));
     }
 
     @AfterEach
     public void tearDown() {
-        System.out.println("###########################");
-        System.out.println();
-        // print all JS errors
-        for (JavascriptException jsException : jsExceptionsList) {
-            System.out.println("JS exception message: " + jsException.getMessage());
-            jsException.printStackTrace();
-            System.out.println();
-        }
-
-        System.out.println("###########################");
-        System.out.println();
-        // print all console messages
-        for (var consoleMessage : consoleMessages) {
-            System.out.println(consoleMessage);
-        }
-
         if (driver != null) {
             driver.quit();
         }
