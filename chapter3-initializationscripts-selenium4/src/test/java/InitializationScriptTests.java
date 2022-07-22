@@ -69,7 +69,7 @@ public class InitializationScriptTests {
             public void beforeAnyWebElementCall(WebElement element, Method method, Object[] args) {
                 try {
                     growlMessage(String.format("About to call a method %s in element", method.getName()));
-                    //highlighElement(element);
+                    //highlightElement(element);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
