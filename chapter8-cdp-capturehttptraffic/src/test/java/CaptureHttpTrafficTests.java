@@ -9,12 +9,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.NetworkInterceptor;
-import org.openqa.selenium.devtools.v95.fetch.Fetch;
-import org.openqa.selenium.devtools.v95.network.Network;
-import org.openqa.selenium.devtools.v95.network.model.BlockedReason;
-import org.openqa.selenium.devtools.v95.network.model.ResourceType;
-import org.openqa.selenium.devtools.v95.network.model.Response;
-import org.openqa.selenium.devtools.v95.security.Security;
+import org.openqa.selenium.devtools.v103.fetch.Fetch;
+import org.openqa.selenium.devtools.v103.network.Network;
+import org.openqa.selenium.devtools.v103.network.model.BlockedReason;
+import org.openqa.selenium.devtools.v103.network.model.ResourceType;
+import org.openqa.selenium.devtools.v103.network.model.Response;
+import org.openqa.selenium.devtools.v103.security.Security;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.http.HttpResponse;
 import org.openqa.selenium.remote.http.Route;
@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.openqa.selenium.devtools.v95.network.Network.*;
+import static org.openqa.selenium.devtools.v103.network.Network.*;
 import static org.openqa.selenium.remote.http.Contents.utf8String;
 
 public class CaptureHttpTrafficTests {
@@ -219,6 +219,7 @@ public class CaptureHttpTrafficTests {
         Assertions.assertFalse(areRequestsMade, String.format("Request %s was made.", url));
     }
 
+    // check compression is working
     public void assertNoLargeImagesRequested(List<Response> capturedResponses, int contentLength) {
         Boolean areThereLargeImages = capturedResponses.stream().anyMatch(r -> r.getMimeType() == ResourceType.IMAGE.toString() &&
                 r.getHeaders() != null && Integer.parseInt(r.getHeaders().get("Content-Length").toString()) < contentLength);

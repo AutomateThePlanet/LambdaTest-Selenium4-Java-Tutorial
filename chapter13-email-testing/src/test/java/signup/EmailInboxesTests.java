@@ -32,9 +32,6 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import com.microsoft.cognitiveservices.speech.*;
-import com.microsoft.cognitiveservices.speech.audio.*;
-
 public class EmailInboxesTests {
     private static ApiClient defaultClient;
     private static InboxControllerApi inboxControllerApi;

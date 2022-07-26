@@ -69,6 +69,7 @@ public class CaptchaHandlingTests {
         questionInput.sendKeys("Do you have free rooms?");
 
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='reCAPTCHA']")));
+
         var captchaCheckbox = wait.until(ExpectedConditions.elementToBeClickable((By.xpath("//div[@class='recaptcha-checkbox-border']"))));
         captchaCheckbox.click();
 

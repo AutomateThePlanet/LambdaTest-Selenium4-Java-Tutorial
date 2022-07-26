@@ -7,8 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.events.DomMutationEvent;
-import org.openqa.selenium.devtools.v95.emulation.Emulation;
-import org.openqa.selenium.devtools.v95.log.Log;
+import org.openqa.selenium.devtools.v103.emulation.Emulation;
+import org.openqa.selenium.devtools.v103.log.Log;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.logging.HasLogEvents;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -60,12 +60,12 @@ public class DevToolsTroubleshootingTests {
         }));
 
         // configure JS exceptions logging
-        List<JavascriptException> jsExceptionsList = new ArrayList<>();
+        List<JavascriptException> jsExceptionsList = Collections.synchronizedList(new ArrayList<>());
         Consumer<JavascriptException> addEntry = jsExceptionsList::add;
         devTools.getDomains().events().addJavascriptExceptionListener(addEntry);
 
         // configure console messages logging
-        List<String> consoleMessages = new ArrayList<>();
+        List<String> consoleMessages = Collections.synchronizedList(new ArrayList<>());
         devTools.send(Log.enable());
         devTools.addListener(Log.entryAdded(),
                 logEntry -> {

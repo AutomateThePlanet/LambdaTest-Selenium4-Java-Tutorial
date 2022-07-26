@@ -50,6 +50,7 @@ public class InitializationScriptTests {
             $.getScript('https://cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.js')
             $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.css" type="text/css" />');
         }
+        
         function highlight(element){
             let defaultBG = element.style.backgroundColor;
             let defaultOutline = element.style.outline;
@@ -78,7 +79,7 @@ public class InitializationScriptTests {
             @Override
             public void afterAnyWebElementCall(WebElement element, Method method, Object[] args, Object result) {
                 try {
-                    highlighElement(element);
+                    highlightElement(element);
                     growlMessage(String.format("%s called for element %s", method.getName(), element.getTagName()));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -165,16 +166,12 @@ public class InitializationScriptTests {
         );
     }
 
-    private void highlighElement(WebElement element) {
-        try {
-            ((JavascriptExecutor)driver).executeScript("highlight(arguments[0])", element);
-        }
-        catch (Exception ex) {
-        }
+    private void highlightElement(WebElement element) {
+        ((JavascriptExecutor)driver).executeScript("highlight(arguments[0])", element);
     }
 
     private void growlMessage(String message) throws InterruptedException {
-        Thread.sleep(500);
+//        Thread.sleep(500);
         ((JavascriptExecutor)driver).executeScript(String.format("$.jGrowl('%s', { header: 'Important' });", message));
     }
 

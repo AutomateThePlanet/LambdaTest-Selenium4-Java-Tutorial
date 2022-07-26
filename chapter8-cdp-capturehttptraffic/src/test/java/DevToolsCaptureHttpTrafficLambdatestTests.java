@@ -7,14 +7,14 @@ import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.NetworkInterceptor;
 import org.openqa.selenium.devtools.events.DomMutationEvent;
-import org.openqa.selenium.devtools.v95.emulation.Emulation;
-import org.openqa.selenium.devtools.v95.fetch.Fetch;
-import org.openqa.selenium.devtools.v95.log.Log;
-import org.openqa.selenium.devtools.v95.network.Network;
-import org.openqa.selenium.devtools.v95.network.model.BlockedReason;
-import org.openqa.selenium.devtools.v95.network.model.ResourceType;
-import org.openqa.selenium.devtools.v95.network.model.Response;
-import org.openqa.selenium.devtools.v95.security.Security;
+import org.openqa.selenium.devtools.v103.emulation.Emulation;
+import org.openqa.selenium.devtools.v103.fetch.Fetch;
+import org.openqa.selenium.devtools.v103.log.Log;
+import org.openqa.selenium.devtools.v103.network.Network;
+import org.openqa.selenium.devtools.v103.network.model.BlockedReason;
+import org.openqa.selenium.devtools.v103.network.model.ResourceType;
+import org.openqa.selenium.devtools.v103.network.model.Response;
+import org.openqa.selenium.devtools.v103.security.Security;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.logging.HasLogEvents;
 import org.openqa.selenium.remote.Augmenter;
@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.openqa.selenium.devtools.events.CdpEventTypes.domMutation;
-import static org.openqa.selenium.devtools.v95.network.Network.*;
+import static org.openqa.selenium.devtools.v103.network.Network.*;
 import static org.openqa.selenium.remote.http.Contents.utf8String;
 
 public class DevToolsCaptureHttpTrafficLambdatestTests {
