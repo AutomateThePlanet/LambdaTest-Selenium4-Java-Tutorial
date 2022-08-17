@@ -62,12 +62,10 @@ public class HandlingCookiesTests {
     @Test
     public void setConsentCookies() {
         driver.navigate().to("https://www.consentmanager.net/");
-        var consentDiv = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("cmpwrapper")));
+
         driver.manage().addCookie(new Cookie("__cmpcccu1", "aBPcfWCkgAwAzADUAIAC4FlgAA"));
         driver.manage().addCookie(new Cookie("__cmpconsent1", "BPcfWCkPcfWCkAfESDENDXAAAAAAAA"));
         driver.navigate().refresh();
-
-        wait.until(ExpectedConditions.invisibilityOf(consentDiv));
     }
 
     @Test
