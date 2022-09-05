@@ -22,6 +22,8 @@
         <option value="$PROJECT_DIR$/chapter14-handling-captcha/pom.xml" />
         <option value="$PROJECT_DIR$/chapter15-handling-cookies/pom.xml" />
         <option value="$PROJECT_DIR$/chapter16-handling-waits/pom.xml" />
+        <option value="$PROJECT_DIR$/chapter17-handling-exceptions/pom.xml" />
+        <option value="$PROJECT_DIR$/chapter18-event-listeners/pom.xml" />
       </list>
     </option>
   </component>

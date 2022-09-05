@@ -12,8 +12,10 @@
         <module name="chapter16-handling-waits" />
         <module name="chapter5-geolocation-testing" />
         <module name="chapter11-test-reporting" />
+        <module name="chapter18-event-listeners" />
         <module name="chapter10-cdp-networkemulation" />
         <module name="chapter12-signup-forms" />
+        <module name="chapter17-handling-exceptions" />
         <module name="chapter13-email-testing" />
         <module name="chapter15-handling-cookies" />
         <module name="chapter9-cdp-performancemetrics" />
