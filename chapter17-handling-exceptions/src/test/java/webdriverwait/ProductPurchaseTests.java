@@ -13,6 +13,7 @@
 
 package webdriverwait;
 
+import exceptions.AnalyzedTestException;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
@@ -58,10 +59,8 @@ public class ProductPurchaseTests {
 
     @Test
     @Order(1)
-    public void completePurchaseSuccessfully_whenNewClient() throws InterruptedException {
+    public void completePurchaseSuccessfully_whenNewClient() throws InterruptedException, AnalyzedTestException {
         driver.navigate().to("http://demos.bellatrix.solutions/");
-
-        // throw new - AnalyzedTestException to show how it is printed both ways. Make screenshot.
 
         var addToCartFalcon9 = findElement(By.cssSelector("[data-product_id*='28']"));
         addToCartFalcon9.click();
@@ -91,8 +90,8 @@ public class ProductPurchaseTests {
 
         // SELENIUM EXCEPTIONS EXPLANATION AND EXAMPLES:
 
-        // ElementClickInterceptedException
-        // ElementNotInteractableException
+        // 1. ElementClickInterceptedException
+        // 2. ElementNotInteractableException
         try {
             var updateCart1 = findElement(By.cssSelector("[value*='Update cart']"));
             updateCart.click();
@@ -100,18 +99,18 @@ public class ProductPurchaseTests {
             System.out.println(e.getMessage());
         } catch (TimeoutException e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
+            e.toString();
         }
 
 
-        // ElementNotSelectableException
+        // 3. ElementNotSelectableException
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[value*='Update cart']")));
 
-        // ElementNotVisibleException
 
+        // 4. ElementNotVisibleException
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[value*='Update cart']")));
-        // InsecureCertificateException
 
+        // 5. InsecureCertificateException
         var devToolsDriver = (HasDevTools)driver;
         DevTools devTools = devToolsDriver.getDevTools();
         devTools.createSession();
@@ -125,91 +124,83 @@ public class ProductPurchaseTests {
         ChromeOptions option = new ChromeOptions();
         option.setAcceptInsecureCerts(true);
 
-        // UnableToSetCookieException
-        // InvalidCookieDomainException
+        // 6. UnableToSetCookieException
+        // 7. InvalidCookieDomainException
         Cookie csrfCookie = new Cookie.Builder("firstName", "anton").domain("stackoverflow").build();
         driver.manage().addCookie(csrfCookie);
 
-        // InvalidCoordinatesException
+
+        // 8. InvalidCoordinatesException
         Actions actions = new Actions(driver);
         actions.moveToElement(updateCart).moveByOffset(111, 222).click().perform();
+        driver.manage().window().maximize();
 
-        // InvalidElementStateException
-        // InvalidSessionIdException
-        // InvalidSwitchToTargetException
+        // 9. InvalidElementStateException
+        // 10. InvalidSessionIdException
+        // 11. InvalidSwitchToTargetException
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.name("active-profile")));
         wait.until(ExpectedConditions.numberOfWindowsToBe(2));
 
-        // JavascriptException
-        // MoveTargetOutOfBoundsException
+        // 12. JavascriptException
+
+        // 13. MoveTargetOutOfBoundsException
         actions.moveToElement(updateCart).moveByOffset(111, 222).click().perform();
 
-        // NoAlertPresentException
+        // 14. NoAlertPresentException
         wait.until(ExpectedConditions.alertIsPresent());
         try {
             driver.switchTo().alert().accept();
         } catch (NoAlertPresentException e) {
             e.printStackTrace();
         }
-        // NoSuchAttributeException
+
+
+
+        // 15. NoSuchAttributeException
         var hiddenValue = updateCart.getAttribute("hidden-value");
         wait.until(ExpectedConditions.attributeToBe(By.cssSelector("[value*='Update cart']"), "hidden-value", "mySecret"));
         wait.until(ExpectedConditions.attributeToBe(updateCart, "hidden-value", "mySecret"));
         wait.until(ExpectedConditions.attributeToBeNotEmpty(updateCart, "hidden-value"));
         wait.until(ExpectedConditions.attributeContains(updateCart, "hidden-value", "secret"));
 
-        // NoSuchCookieException
+
+        // 16. NoSuchCookieException
         wait.until(d -> d.manage().getCookieNamed("hidden-secret") != null);
 
-        // NoSuchElementException
-        // InvalidSelectorException
+        // 17. NoSuchElementException
+        // 18. InvalidSelectorException
         var messageAlert1 = findElement(By.cssSelector("[+class*='woocommerce-message']"));
 
-
-        // NoSuchFrameException
+        // 19. NoSuchFrameException
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.name("active-profile")));
 
-        // NoSuchWindowException
+        // 20. NoSuchWindowException
         wait.until(ExpectedConditions.numberOfWindowsToBe(2));
         for (String handle : driver.getWindowHandles()) {
             try {
                 driver.switchTo().window(handle);
             } catch (NoSuchWindowException e) {
                 e.printStackTrace();
-
                 throw e;
             }
         }
-        // RemoteDriverServerException
-        // SessionNotCreatedException
-        // StaleElementReferenceException
 
+
+        // 21. RemoteDriverServerException
+        // 22. SessionNotCreatedException
+
+        // 23. StaleElementReferenceException
         wait.until(d -> ((JavascriptExecutor)d).executeScript("return jQuery.active").toString() == "0");
-        // wait for ajax
-        // wait for animations
 
-        // TimeoutException
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)) ;
+
+        // 24. TimeoutException
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         wait.until(d -> ((JavascriptExecutor)d).executeScript("return document.readyState").equals("complete"));
 
 
-
-        // UnexpectedAlertPresentException
-        // WebDriverException
-
-
-        // Lambda Test to show exceptions
-        // Hyper Execute + stack trace
-
-
-
-
-
-
-
-
-
-
+        // 25. UnexpectedAlertPresentException
+        // 26. WebDriverException
+        // 27.	NoSuchSessionException
 
 
         var proceedToCheckout = findElement(By.cssSelector("[class*='checkout-button button alt wc-forward']"));
